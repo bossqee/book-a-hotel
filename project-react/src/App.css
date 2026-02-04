@@ -1,0 +1,61 @@
+#root {
+  /* max-width: 1280px; */
+  margin: 0 auto;
+  /* padding: 2rem; */
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.home-background {
+  background-image:
+    linear-gradient(rgba(10, 17, 40, 0.4) 0%, rgba(10, 17, 40, 0.7) 100%),
+    url("https://lh3.googleusercontent.com/aida-public/AB6AXuBksw1cxpG7vqUc1EuznCPaeC6_gMFeOUEgztctaTlPv59Mm9jZy3PuPv7FwI7iZGcu_w5VNNe_nBKCJuh1rAdHCv4b53ugxvRQ3VLLg53R8XnH0cfB-5O4cAyIZ8hOwVi1LDnv8jUSETWgwABdEZDSdLhhG08eZaP7oI3hD9XpdwDAW0p-lDwkyfkJTbEju6qIyek8kp25POuPR58r8ar-zTGXEg3OYld8Lw1radnPs1lX7z2E0h_3LQ0CXVW8SHa9uqGIB5lWeTc");
+}
+
+.bg-btn {
+  background-color: #c5a059;
+  .bg-btn:hover {
+    background-color: #a8853e;
+  }
+}
+
+.glass-nav {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
