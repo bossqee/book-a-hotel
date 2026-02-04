@@ -2,6 +2,8 @@ import React from "react";
 import "../App.css";
 import Nav_Main from "../components/ui/Nav_Main.jsx";
 import { Link } from "react-router";
+import Search_Bar from "../components/ui/Search_Bar.jsx";
+import Title from "../components/ui/Title.jsx";
 
 const Home = () => {
   return (
@@ -11,7 +13,7 @@ const Home = () => {
           <div className="flex items-center justify-between space-x-4">
             <div className="flex items-center text-white text-lg font-semibold animate-in duration-500">
               <Link style={{ color: "white", textDecoration: "none" }} to={"/"}>
-                Home
+                MoonNight.com
               </Link>
             </div>
             <div className="flex items-center gap-6 text-white text-md animate-in duration-500">
@@ -54,40 +56,11 @@ const Home = () => {
           </div>
         </div>
       </nav>
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
-        <h1 className="text-4xl font-bold text-white text-5xl md:text-7xl font-serif max-w-4xl leading-[1.1]">
-          Your Gateway to the
-        </h1>
-        <h1 className="text-4xl font-bold title-yellow text-5xl md:text-7xl font-serif max-w-4xl leading-[1.1] italic mb-6">
-          Extraordinary
-        </h1>
-        <p className="text-white/80 text-md font-light mb-12 max-w-2xl">
-          สัมผัสประสบการณ์ความหรูหราและความสะดวกสบายอย่างที่ไม่เคยมีมาก่อน —
-          การเข้าพักที่สมบูรณ์แบบของคุณเริ่มต้นที่นี่.
-        </p>
-        <div>
-          <div className="">
-            <span></span>
-            <input type="text" />
-          </div>
-          <div className="">
-            <span></span>
-            <input type="text" />
-          </div>
-          <div className="">
-            <span></span>
-            <input type="text" />
-          </div>
-          <div>
-            <button>
-              <span className="material-symbols-outlined">search</span>
-              <span>ค้นหา</span>
-            </button>
-          </div>
-        </div>
+      <Title />
+      <div className="absolute top-125 left-0 right-0 px-4 transform -translate-y-1/2">
+        <Search_Bar />
       </div>
     </div>
   );
 };
-
 export default Home;

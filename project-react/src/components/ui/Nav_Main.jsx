@@ -7,7 +7,7 @@ const Nav_Main = () => {
       <div className="max-w-[1440px] mx-auto px-10 py-4">
         <div className="flex items-center justify-between space-x-4">
           <div className="flex items-center text-white text-lg font-semibold animate-in duration-500">
-            <Link style={{color: 'black', textDecoration: 'none'}} to={"/"}>Home</Link>
+            <Link style={{color: 'black', textDecoration: 'none'}} to={"/"}>MoonNight.com</Link>
           </div>
           <div className="flex items-center gap-6 text-white text-md animate-in duration-500">
             <Link style={{color: 'black', textDecoration: 'none'}} className="text-white/90 hover:text-accent-gold text-sm font-medium transition-colors" to={"Accommodations"}>ที่พัก </Link>
