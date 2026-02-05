@@ -1,47 +1,98 @@
-export default function Search_Bar() {
-  return (
-    <form className="w-full max-w-6xl mx-auto">
-      <div className="flex flex-col md:flex-row gap-2 rounded-xl bg-white p-2 shadow-lg">
+import { useState, useRef, useEffect } from "react";
+import Dropdown from "./Dropdown.jsx";
 
-        <div className="flex items-center gap-2 border rounded-lg px-4 py-3 flex-1">
-          <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path d="M21 10c0 6-9 13-9 13S3 16 3 10a9 9 0 1118 0z" />
-            <circle cx="12" cy="10" r="3" />
-          </svg>
-          <input
-            type="text"
-            placeholder="ท่านจะไปที่ไหน?"
-            className="w-full outline-none text-sm"
-          />
+export default function Search_Bar() {
+  const [openDropdown, setOpenDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // 👉 คลิกข้างนอกแล้วปิด
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setOpenDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div className="relative w-full max-w-5xl">
+      <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl flex items-stretch p-2 border border-white/20">
+
+        {/* ปลายทาง */}
+        <div className="flex-1 flex flex-col px-6 py-3 hover:bg-black/5 rounded-xl">
+          <span className="text-[12px] font-bold tracking-widest text-gray-500 mb-1">
+            ปลายทาง
+          </span>
+          <div className="flex items-center">
+            <span className="material-symbols-outlined text-accent-gold mr-2">
+              location_on
+            </span>
+            <input
+              className="bg-transparent outline-none focus:outline-none text-sm w-full"
+              placeholder="คุณต้องการไปที่ไหน?"
+            />
+          </div>
         </div>
 
-        <button className="flex items-center gap-2 rounded-lg px-4 py-3 flex-1 border-gray-300 border">
-          <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-            <line x1="16" y1="2" x2="16" y2="6" />
-            <line x1="8" y1="2" x2="8" y2="6" />
-            <line x1="3" y1="10" x2="21" y2="10" />
-          </svg>
-          <span className="text-sm text-gray-500">
-            วันเช็คอิน — วันเช็คเอาท์
-          </span>
-        </button>
-
-        <button className="flex items-center gap-2 border rounded-lg px-4 py-3 flex-1">
-          <span className="material-symbols-outlined text-gray-500 text-xl mr-2">group</span>
-          <span className="text-sm text-gray-500">
-            ผู้ใหญ่ 2 · เด็ก 0 · 1 ห้อง
-          </span>
-        </button>
-
+        {/* วันที่ */}
         <button
-          type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition"
+          className="flex-1 flex flex-col px-6 py-3 hover:bg-black/5 rounded-xl
+                     focus:outline-none focus:ring-0 active:outline-none"
         >
-          ค้นหา
+          <span className="text-[12px] font-bold tracking-widest text-gray-500 mb-1">
+            เช็คอิน - เช็คเอาท์
+          </span>
+          <div className="flex items-center">
+            <span className="material-symbols-outlined text-accent-gold mr-2">
+              calendar_month
+            </span>
+            <span className="text-sm">เพิ่มวันที่</span>
+          </div>
         </button>
+
+        {/* ห้องพัก & ผู้เข้าพัก */}
+        <div ref={dropdownRef} className="relative flex-1">
+          <button
+            type="button"
+            onClick={() => setOpenDropdown((v) => !v)}
+            className="w-full flex flex-col px-6 py-3 hover:bg-black/5 rounded-xl
+                       focus:outline-none focus:ring-0"
+          >
+            <span className="text-[12px] font-bold tracking-widest text-gray-500 mb-1">
+              ห้องพัก & ผู้เข้าพัก
+            </span>
+            <div className="flex items-center">
+              <span className="material-symbols-outlined text-accent-gold mr-2">
+                group
+              </span>
+              <span className="text-sm">2 ผู้ใหญ่ · 0 เด็ก · 1 ห้อง</span>
+            </div>
+          </button>
+
+          {/* Dropdown */}
+          {openDropdown && <Dropdown />}
+        </div>
+
+        {/* Search */}
+        <div className="flex items-center ml-2">
+          <button
+            className="
+              bg-primary text-white px-10 h-full rounded-xl font-bold
+              flex items-center gap-2
+              hover:bg-primary/90 active:scale-95
+              transition-all duration-200
+              focus:outline-none focus:ring-0
+            "
+          >
+            <span className="material-symbols-outlined">search</span>
+            Search
+          </button>
+        </div>
 
       </div>
-    </form>
+    </div>
   );
 }

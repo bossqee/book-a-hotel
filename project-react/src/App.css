@@ -76,3 +76,15 @@
   color: #c5a059;
   transition: color 0.3s ease;
 }
+
+.border-gg {
+  border: 2px solid #e5e7eb;
+}
+
+.text-navy-deep {
+  color: #001f3f;
+}
+
+.text-gray-400 {
+  color: #9ca3af;
+}

@@ -6,6 +6,7 @@ const Layout = () => {
   return (
     <div>
       <Nav_Main />
+      <div className="h-20" aria-hidden="true" />
       <Outlet />
     </div>
   )

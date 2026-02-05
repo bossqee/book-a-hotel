@@ -4,8 +4,11 @@ import Nav_Main from "../components/ui/Nav_Main.jsx";
 import { Link } from "react-router";
 import Search_Bar from "../components/ui/Search_Bar.jsx";
 import Title from "../components/ui/Title.jsx";
+import Dropdown from "../components/ui/Dropdown.jsx";
+import { useState } from "react";
 
 const Home = () => {
+  const [openDropdown, setOpenDropdown] = useState(false);
   return (
     <div className="absolute inset-0 bg-cover bg-center home-background">
       <nav className="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-white/10">
@@ -57,7 +60,7 @@ const Home = () => {
         </div>
       </nav>
       <Title />
-      <div className="absolute top-125 left-0 right-0 px-4 transform -translate-y-1/2">
+      <div className="absolute top-125 left-1/2 px-4 transform -translate-x-1/2 -translate-y-1/2">
         <Search_Bar />
       </div>
     </div>
