@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 const Nav_Main = () => {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-white/10">
+    <nav className="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-white/10 backdrop-blur-md shadow-md">
       <div className="max-w-[1440px] mx-auto px-10 py-4">
         <div className="flex items-center justify-between space-x-4">
           <div className="flex items-center text-white text-lg font-semibold animate-in duration-500">

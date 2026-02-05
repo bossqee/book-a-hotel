@@ -8,7 +8,6 @@ import Dropdown from "../components/ui/Dropdown.jsx";
 import { useState } from "react";
 
 const Home = () => {
-  const [openDropdown, setOpenDropdown] = useState(false);
   return (
     <div className="absolute inset-0 bg-cover bg-center home-background">
       <nav className="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-white/10">
