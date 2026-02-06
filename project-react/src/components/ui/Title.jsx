@@ -1,5 +1,4 @@
 import React from "react";
-import Search_Bar from "./Search_Bar.jsx";
 import BlurText from "./Blurtext.jsx";
 import SplitText from "./SplitText";
 import TextType from "./TextType";
