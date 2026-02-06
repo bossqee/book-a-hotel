@@ -60,7 +60,6 @@ const Home = () => {
       </nav>
       <Title />
       <div className="absolute top-125 left-1/2 px-4 transform -translate-x-1/2 -translate-y-1/2">
-        <Search_Bar />
       </div>
     </div>
   );
