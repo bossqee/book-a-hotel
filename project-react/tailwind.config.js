@@ -1,24 +1,45 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  darkMode: 'class',
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
-        "primary": "#135bec",
+        primary: "#135bec",
         "accent-gold": "#C5A059",
         "deep-navy": "#0A1128",
         "background-light": "#f6f6f8",
         "background-dark": "#101622",
       },
       fontFamily: {
-        "display": ["Plus Jakarta Sans", "sans-serif"],
-        "serif": ["Playfair Display", "serif"]
+        display: ["Plus Jakarta Sans", "sans-serif"],
+        serif: ["Playfair Display", "serif"],
       },
     },
   },
   plugins: [],
-}
+};
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: "#135bec",
+        "accent-gold": "#C5A059",
+        "deep-navy": "#0A1128",
+        "background-light": "#f6f6f8",
+        "background-dark": "#101622",
+      },
+      fontFamily: {
+        display: ["Plus Jakarta Sans", "sans-serif"],
+        serif: ["Playfair Display", "serif"],
+      },
+      borderRadius: {
+        DEFAULT: "0.25rem",
+        lg: "0.5rem",
+        xl: "0.75rem",
+        full: "9999px",
+      },
+    },
+  },
+};

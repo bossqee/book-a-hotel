@@ -1,11 +1,16 @@
 import React from "react";
 import "../App.css";
-import Nav_Main from "../components/ui/Nav_Main.jsx";
 import { Link } from "react-router";
-import Search_Bar from "../components/ui/Search_Bar.jsx";
 import Title from "../components/ui/Title.jsx";
-import Dropdown from "../components/ui/Dropdown.jsx";
 import { useState } from "react";
+import { useRef } from "react";
+import {
+  motion,
+  useMotionValue,
+  useAnimationFrame,
+  useTransform,
+} from "motion/react";
+import ShinyText from "../components/reactbits/ShinyText.jsx";
 
 const Home = () => {
   return (
@@ -14,9 +19,21 @@ const Home = () => {
         <div className="max-w-[1440px] mx-auto px-10 py-4">
           <div className="flex items-center justify-between space-x-4">
             <div className="flex items-center text-white text-lg font-semibold animate-in duration-500">
-              <Link style={{ color: "white", textDecoration: "none" }} to={"/"}>
-                MoonNight.com
-              </Link>
+              <ShinyText
+                text={<Link to={"/"}>MoonNight.com</Link>}
+                className=""
+                animationDuration={1500}
+                delayDuration={500}
+                speed={3.1}
+                delay={0}
+                color="#b5b5b5"
+                shineColor="#ffffff"
+                spread={105}
+                direction="left"
+                yoyo={false}
+                pauseOnHover={false}
+                disabled={false}
+              />
             </div>
             <div className="flex items-center gap-6 text-white text-md animate-in duration-500">
               <Link
@@ -59,8 +76,7 @@ const Home = () => {
         </div>
       </nav>
       <Title />
-      <div className="absolute top-125 left-1/2 px-4 transform -translate-x-1/2 -translate-y-1/2">
-      </div>
+      <div className="absolute top-125 left-1/2 px-4 transform -translate-x-1/2 -translate-y-1/2"></div>
     </div>
   );
 };

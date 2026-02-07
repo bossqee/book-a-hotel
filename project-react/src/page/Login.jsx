@@ -5,7 +5,7 @@ import git from "../assets/git.svg";
 const Login = () => {
   return (
     <main class="flex flex-1 items-center h-screen justify-center p-6 bg-gradient-to-b from-blue-100 via-white to-blue-100 dark:from-navy-900 dark:via-background-dark dark:to-navy-900">
-      <div class="layout-content-container flex flex-col w-full max-w-[480px] bg-white/70 dark:bg-background-dark/80 backdrop-blur-xl rounded-xl shadow-2xl border border-white/20 p-8">
+      <div class="layout-content-container flex flex-col w-full mt-16 max-w-[480px] bg-white/70 dark:bg-background-dark/80 backdrop-blur-xl rounded-xl shadow-2xl border border-white/20 p-8">
         <div class="mb-4">
           <h1 class="text-navy-deep dark:text-white tracking-tight text-3xl font-bold leading-tight text-center pb-2">
             Welcome Back
