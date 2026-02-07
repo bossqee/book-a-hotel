@@ -16,7 +16,7 @@ const Login = () => {
         </div>
 
         <div class="mb-6">
-          <div class="flex border-b border-gray-200 dark:border-gray-700 px-4 gap-8 justify-center">
+          <div class="flex border-b border-gray-300 px-4 gap-8 justify-center">
             <Link
               to="/Login"
               class="flex flex-col items-center justify-center border-b-2 border-primary text-navy-deep dark:text-white pb-3 pt-2"
@@ -46,7 +46,7 @@ const Login = () => {
               </p>
             </div>
             <input
-              class="form-input flex w-full rounded-lg text-navy-deep dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50 h-12 placeholder:text-gray-400 p-4 text-sm font-normal"
+              class="form-input flex w-full rounded-lg text-navy-deep dark:text-white focus:outline-0 focus:ring-1 focus:ring-primary/50 border border-gray-200 h-12 placeholder:text-gray-400 p-4 text-sm font-normal"
               placeholder="name@luxetravel.com"
               type="email"
             />
@@ -64,7 +64,7 @@ const Login = () => {
               </a>
             </div>
             <input
-              class="form-input flex w-full rounded-lg text-navy-deep dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50 h-12 placeholder:text-gray-400 p-4 text-sm font-normal"
+              class="form-input flex w-full rounded-lg text-navy-deep dark:text-white focus:outline-0 focus:ring-1 focus:ring-primary/50 border border-gray-200 h-12 placeholder:text-gray-400 p-4 text-sm font-normal"
               placeholder="••••••••"
               type="password"
             />
@@ -81,7 +81,7 @@ const Login = () => {
 
         <div class="relative my-8">
           <div class="absolute inset-0 flex items-center">
-            <div class="w-full border-t border-gray-200 dark:border-gray-700"></div>
+            <div class="w-full border-t border-gray-300"></div>
           </div>
           <div class="relative flex justify-center text-xs uppercase">
             <span class="bg-white/0 px-2 text-gray-400 backdrop-blur-sm">
@@ -91,7 +91,7 @@ const Login = () => {
         </div>
 
         <div class="grid grid-cols-2 gap-4">
-          <button class="flex items-center justify-center gap-2 h-11 border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white/60 dark:bg-gray-800/50 hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:border-gray-400 dark:hover:border-gray-500 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 border-gg">
+          <button class="flex items-center justify-center gap-2 h-11 border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white/60 hover:border-gray-400 dark:hover:border-gray-500 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 border-gg">
             <span class="text-lg">
               <img src={google} alt="Google" class="w-5 h-5" />
             </span>
@@ -99,7 +99,7 @@ const Login = () => {
               Google
             </span>
           </button>
-          <button class="flex items-center justify-center gap-2 h-11 border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white/60 dark:bg-gray-800/50 hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:border-gray-400 dark:hover:border-gray-500 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 border-gg">
+          <button class="flex items-center justify-center gap-2 h-11 border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white/60  hover:border-gray-400 dark:hover:border-gray-500 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 border-gg">
             <span class="text-lg">
               <img src={git} alt="Github" class="w-5 h-5" />
             </span>
