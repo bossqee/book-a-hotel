@@ -11,6 +11,8 @@ import {
   useTransform,
 } from "motion/react";
 import ShinyText from "../components/reactbits/ShinyText.jsx";
+import ScrollReveal from "../components/reactbits/ScrollReveal.jsx";
+import Search_Bar from "../components/ui/Search_Bar.jsx";
 
 const Home = () => {
   return (
@@ -76,7 +78,7 @@ const Home = () => {
         </div>
       </nav>
       <Title />
-      <div className="absolute top-125 left-1/2 px-4 transform -translate-x-1/2 -translate-y-1/2"></div>
+      
     </div>
   );
 };

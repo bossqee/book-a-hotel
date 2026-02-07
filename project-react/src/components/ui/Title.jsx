@@ -2,6 +2,7 @@ import React from "react";
 import BlurText from "../reactbits/BlurText";
 import SplitText from "../reactbits/SplitText";
 import TextType from "../reactbits/TextType.jsx";
+import Search_Bar from "./Search_Bar.jsx";
 
 const handleAnimationComplete = () => {
   console.log("Animation completed!");
@@ -35,7 +36,6 @@ const Title = () => {
         pauseDuration={1500}
         showCursor
         cursorCharacter="▎"
-       
         deletingSpeed={50}
         variableSpeedEnabled={false}
         variableSpeedMin={60}
@@ -43,6 +43,7 @@ const Title = () => {
         cursorBlinkDuration={0.5}
         className="text-white/80 text-md font-light mb-12 max-w-2xl"
       />
+      <Search_Bar />
     </div>
   );
 };
