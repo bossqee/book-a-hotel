@@ -9,7 +9,7 @@ const Search_Bar = () => {
         </span>
         <input
           class="bg-transparent border-none focus:ring-0 text-deep-navy dark:text-white placeholder:text-gray-400 w-full font-medium"
-          placeholder="Where to?"
+          placeholder="คุณต้องการไปที่ไหน?"
           type="text"
         />
       </div>
@@ -19,7 +19,7 @@ const Search_Bar = () => {
         </span>
         <input
           class="bg-transparent border-none focus:ring-0 text-deep-navy dark:text-white placeholder:text-gray-400 w-full font-medium"
-          placeholder="Check-in / Out"
+          placeholder="เช็คอิน - เช็คเอาท์"
           type="text"
         />
       </div>
@@ -29,11 +29,11 @@ const Search_Bar = () => {
         </span>
         <input
           class="bg-transparent border-none focus:ring-0 text-deep-navy dark:text-white placeholder:text-gray-400 w-full font-medium"
-          placeholder="2 Guests"
+          placeholder="ผู้ใหญ่ 2 ห้อง 1"
           type="text"
         />
       </div>
-      <button class="bg-primary text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+      <button class="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
         <span class="material-symbols-outlined">search</span>
         <span>Search</span>
       </button>

@@ -1,9 +1,12 @@
 import React from 'react'
 
+
 const Accommodations = () => {
   return (
-    <div>Accommodations</div>
-  )
+    <div>
+      <p>Accommodations Page</p>
+    </div>
+  );
 }
 
 export default Accommodations
