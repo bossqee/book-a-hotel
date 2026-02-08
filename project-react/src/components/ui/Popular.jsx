@@ -4,7 +4,7 @@ import AnimatedContent from "../reactbits/AnimatedContent";
 
 const Popular = () => {
   return (
-    <div className="bg-gray-50 min-h-screen py-10 px-4 md:px-10">
+    <div className="bg-white min-h-screen py-10 px-4 md:px-10">
       <div className="max-w-7xl mx-auto mt-14">
         <AnimatedContent
           distance={100}

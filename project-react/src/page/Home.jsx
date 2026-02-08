@@ -14,6 +14,8 @@ import ShinyText from "../components/reactbits/ShinyText.jsx";
 import Search_Bar from "../components/ui/Search_Bar.jsx";
 import { Data } from "../data/Data.js";
 import Popular from "../components/ui/Popular.jsx";
+import Hero from "../components/ui/Hero.jsx";
+import Footer from "../components/ui/Footer.jsx";
 
 const Home = () => {
   return (
@@ -80,6 +82,8 @@ const Home = () => {
       </nav>
       <Title />
       <Popular />
+      <Hero />
+      <Footer />
     </div>
   );
 };
