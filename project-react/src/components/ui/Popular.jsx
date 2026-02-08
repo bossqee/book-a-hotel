@@ -1,31 +1,55 @@
 import React from "react";
 import { Data } from "../../data/Data";
-import ScrollReveal from "../ScrollReveal";
+import AnimatedContent from "../reactbits/AnimatedContent";
 
 const Popular = () => {
   return (
     <div className="bg-gray-50 min-h-screen py-10 px-4 md:px-10">
       <div className="max-w-7xl mx-auto mt-14">
-        <div className="mb-8 flex items-center justify-between space-x-4">
-          <div className="text-left">
-            <p className="text-[#C5A059]">
-              ค้นหาที่พักที่เหมาะกับสไตล์การเดินทางของคุณ
-            </p>
-            <h1 className="text-3xl font-bold text-gray-800">
-              สำรวจที่พักยอดนิยม
-            </h1>
-          </div>
-          <div className="mt-12">
-            <a
-              class="text-primary font-bold text-sm flex items-center gap-1 hover:gap-2 transition-all"
-              href="Accommodations"
-            >
-              View All Accommodation{" "}
-              <span class="material-symbols-outlined">arrow_right_alt</span>
-            </a>
-          </div>
-        </div>
-
+        <AnimatedContent
+          distance={100}
+          direction="vertical"
+          reverse={false}
+          duration={0.8}
+          ease="power3.out"
+          initialOpacity={0}
+          animateOpacity
+          scale={1}
+          threshold={0.1}
+          delay={0}
+        >
+          <div className="mb-8 flex items-center justify-between space-x-4">
+            <div className="text-left">
+              <p className="text-[#C5A059]">
+                ค้นหาที่พักที่เหมาะกับสไตล์การเดินทางของคุณ
+              </p>
+              <h1 className="text-3xl font-bold text-gray-800">
+                สำรวจที่พักยอดนิยม
+              </h1>
+            </div>
+            <div className="mt-12">
+              <a
+                class="text-primary font-bold text-sm flex items-center gap-1 hover:gap-2 transition-all"
+                href="Accommodations"
+              >
+                View All Accommodation{" "}
+                <span class="material-symbols-outlined">arrow_right_alt</span>
+              </a>
+            </div>
+          </div>{" "}
+        </AnimatedContent>
+        <AnimatedContent
+          distance={100}
+          direction="vertical"
+          reverse={false}
+          duration={0.8}
+          ease="power3.out"
+          initialOpacity={0.5}
+          animateOpacity
+          scale={1}
+          threshold={0.1}
+          delay={0}
+        >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {Data.map((item) => (
             <div
@@ -69,6 +93,7 @@ const Popular = () => {
             </div>
           ))}
         </div>
+        </AnimatedContent>
       </div>
     </div>
   );
