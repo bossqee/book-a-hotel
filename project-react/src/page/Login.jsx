@@ -16,6 +16,8 @@ const Login = () => {
 
     // เงื่อนไขเช็ค Admin
     if (email === "admin@gmail.com" && password === "123456") {
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("userRole", "admin");
       Swal.fire({
         icon: "success",
         title: "ยินดีต้อนรับแอดมิน",
@@ -25,9 +27,11 @@ const Login = () => {
       }).then(() => {
         navigate("/admin");
       });
-    } 
+    }
     // เงื่อนไขเช็ค User
     else if (email === "user@gmail.com" && password === "111111") {
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("userRole", "user");
       Swal.fire({
         icon: "success",
         title: "เข้าสู่ระบบสำเร็จ",
@@ -37,7 +41,7 @@ const Login = () => {
       }).then(() => {
         navigate("/");
       });
-    } 
+    }
     // ถ้าข้อมูลไม่ถูกต้อง
     else {
       Swal.fire({
@@ -52,7 +56,6 @@ const Login = () => {
   return (
     <main className="flex flex-1 items-center h-screen justify-center p-6 bg-gradient-to-b from-blue-100 via-white to-blue-100 dark:from-navy-900 dark:via-background-dark dark:to-navy-900">
       <div className="layout-content-container flex flex-col w-full mt-16 max-w-[480px] bg-white/70 dark:bg-background-dark/80 backdrop-blur-xl rounded-xl shadow-2xl border border-white/20 p-8">
-        
         <div className="mb-4">
           <h1 className="text-navy-deep dark:text-white tracking-tight text-3xl font-bold leading-tight text-center pb-2">
             Welcome Back
@@ -65,10 +68,16 @@ const Login = () => {
         {/* Tab Login/Sign Up */}
         <div className="mb-6">
           <div className="flex border-b border-gray-300 px-4 gap-8 justify-center">
-            <Link to="/Login" className="flex flex-col items-center justify-center border-b-2 border-[#0a192f] text-navy-deep dark:text-white pb-3 pt-2">
+            <Link
+              to="/Login"
+              className="flex flex-col items-center justify-center border-b-2 border-[#0a192f] text-navy-deep dark:text-white pb-3 pt-2"
+            >
               <p className="text-sm font-bold">Login</p>
             </Link>
-            <Link to="/Register" className="flex flex-col items-center justify-center border-b-2 border-transparent text-gray-400 pb-3 pt-2 hover:text-navy-deep transition-all">
+            <Link
+              to="/Register"
+              className="flex flex-col items-center justify-center border-b-2 border-transparent text-gray-400 pb-3 pt-2 hover:text-navy-deep transition-all"
+            >
               <p className="text-sm font-bold">Sign Up</p>
             </Link>
           </div>
@@ -77,21 +86,32 @@ const Login = () => {
         {/* Form เริ่มต้นตรงนี้ */}
         <form onSubmit={handleLogin} className="space-y-4">
           <div className="flex flex-col w-full">
-            <p className="text-navy-deep dark:text-gray-200 text-sm font-semibold pb-2">Email Address</p>
+            <div className="flex justify-between items-center">
+              <p className="text-navy-deep dark:text-gray-200 text-sm font-semibold pb-2">
+                Email Address
+              </p>
+            </div>
             <input
               className="form-input flex w-full rounded-lg border border-gray-200 h-12 p-4 text-sm"
-              placeholder="abc@gmail.com"
+              placeholder="name@gmail.com"
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)} // เก็บค่า Email
             />
           </div>
-          
+
           <div className="flex flex-col w-full">
             <div className="flex justify-between items-center pb-2">
-              <p className="text-navy-deep dark:text-gray-200 text-sm font-semibold">Password</p>
-              <a className="text-xs font-medium text-blue-600 hover:underline" href="#">Forgot password?</a>
+              <p className="text-navy-deep dark:text-gray-200 text-sm font-semibold">
+                Password
+              </p>
+              <a
+                className="text-xs font-medium text-blue-600 hover:underline"
+                href="#"
+              >
+                Forgot password?
+              </a>
             </div>
             <input
               className="form-input flex w-full rounded-lg border border-gray-200 h-12 p-4 text-sm"
@@ -104,7 +124,7 @@ const Login = () => {
           </div>
 
           <div className="mt-8">
-            <button 
+            <button
               type="submit"
               className="w-full flex cursor-pointer items-center justify-center rounded-lg h-12 px-5 bg-[#0a192f] hover:bg-navy-deep/90 text-white text-sm font-bold transition-all shadow-lg"
             >
@@ -118,7 +138,9 @@ const Login = () => {
             <div className="w-full border-t border-gray-300"></div>
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-white px-2 text-gray-400">Or continue with</span>
+            <span className="bg-white px-2 text-gray-400">
+              Or continue with
+            </span>
           </div>
         </div>
 

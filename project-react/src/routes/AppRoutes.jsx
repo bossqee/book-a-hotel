@@ -6,38 +6,54 @@ import Accommodations from "../page/Accommodations.jsx";
 import Login from "../page/Login.jsx";
 import Register from "../page/Register.jsx";
 import AdminDashboard from "../page/admin/AdminDashboard.jsx";
-import { path } from "framer-motion/client";
 import LayoutAdmin from "../layout/LayoutAdmin.jsx";
 import Category from "../page/admin/Category.jsx";
+import ProtectedRoute from "./ProtectedRoute.jsx"; // นำเข้าตัวป้องกัน Route
+
 
 const router = createBrowserRouter([
+  
+  
+  // --- ส่วนของ USER ---
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <ProtectedRoute> 
+        {/* ครอบเพื่อให้ต้อง Login ก่อนถึงจะเข้าหน้า Layout (Home/Accommodations) ได้ */}
+        <Layout />
+      </ProtectedRoute>
+    ),
     children: [
       { index: true, element: <Home /> },
       { path: "Home", element: <Home /> },
       { path: "Accommodations", element: <Accommodations /> },
-      { path: "Login", element: <Login /> },
-      { path: "Register", element: <Register /> },
     ],
   },
-  // {
-  //   path: "/admin",
-  //   element: <LayoutAdmin />,
-  //   children: [
-  //     { index: true, element: <AdminDashborad /> },
-  //     { path: "AdminDashboard", element: <AdminDashboard /> },
-  //     { path: "Category", element: <Category /> },
-  //     { path: "Product", element: <Product /> },
-  //   ],
-  // },
+
+  // --- ส่วนของ ADMIN ---
+  {
+    path: "/admin",
+    element: (
+      <ProtectedRoute allowRole="admin">
+        {/* ครอบเพื่อให้เข้าได้เฉพาะคนที่มี Role เป็น admin เท่านั้น */}
+        <LayoutAdmin />
+      </ProtectedRoute>
+    ),
+    children: [
+      { index: true, element: <AdminDashboard /> },
+      { path: "dashboard", element: <AdminDashboard /> },
+      { path: "category", element: <Category /> },
+    ],
+  },
+
+  // --- ส่วนที่เข้าได้โดยไม่ต้อง Login ---
+  { path: "/Login", element: <Login /> },
+  { path: "/Register", element: <Register /> },
 ]);
+
 const AppRoutes = () => {
   return (
-    <div>
-      <RouterProvider router={router} />
-    </div>
+    <RouterProvider router={router} />
   );
 };
 

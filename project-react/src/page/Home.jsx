@@ -1,6 +1,6 @@
 import React from "react";
 import "../App.css";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Title from "../components/ui/Title.jsx";
 import { useState } from "react";
 import { useRef } from "react";
@@ -16,8 +16,38 @@ import { Data } from "../data/Data.js";
 import Popular from "../components/ui/Popular.jsx";
 import Hero from "../components/ui/Hero.jsx";
 import Footer from "../components/ui/Footer.jsx";
+import Swal from "sweetalert2"; // 2. นำ SweetAlert2 มาใช้
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  // 3. ฟังก์ชันสำหรับ Logout
+  const handleLogout = (e) => {
+    e.preventDefault(); // ป้องกันการเปลี่ยนหน้าทันที
+
+    Swal.fire({
+      title: "ยืนยันการออกจากระบบ?",
+      text: "คุณต้องการออกจากเซสชันปัจจุบันหรือไม่",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#007b40",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "ใช่, ออกจากระบบ",
+      cancelButtonText: "ยกเลิก",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // ถ้ากดตกลง
+        Swal.fire({
+          title: "ออกจากระบบสำเร็จ",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        }).then(() => {
+          navigate("/Login"); // ดีดกลับไปหน้า Login หรือ "/" ตามต้องการ
+        });
+      }
+    });
+  };
   return (
     <div className="absolute inset-0 bg-cover bg-center home-background">
       <nav className="absolute top-0 left-0 right-0 z-50 glass-nav border-b border-white/10 backdrop-blur-md   shadow-md">
@@ -46,22 +76,14 @@ const Home = () => {
                 className="text-white/90 hover:text-accent-gold text-sm font-medium transition-colors"
                 to={"Accommodations"}
               >
-                ที่พัก{" "}
+                Accommodations{" "}
               </Link>
-              <Link
-                style={{ color: "white", textDecoration: "none" }}
-                className="text-white/90 hover:text-accent-gold text-sm font-medium transition-colors"
-                to={"Login"}
+              <button
+                onClick={handleLogout}
+                className="bg-btn text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-all shadow-lg cursor-pointer"
               >
-                ลงชื่อเข้าใช้{" "}
-              </Link>
-              <Link
-                style={{ color: "black", textDecoration: "none" }}
-                className="bg-btn hover:bg-accent-gold/90 text-deep-navy px-6 py-2.5 rounded-lg text-sm font-bold transition-all shadow-lg"
-                to={"Register"}
-              >
-                สมัครสมาชิก{" "}
-              </Link>
+                Logout
+              </button>
             </div>
           </div>
         </div>

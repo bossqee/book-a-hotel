@@ -48,7 +48,7 @@ const Register = () => {
             </div>
             <input
               class="form-input flex w-full rounded-lg text-navy-deep dark:text-white focus:outline-0 focus:ring-1 focus:ring-primary/50 border border-gray-200 dark:border-gray-300 bg-white/50 h-12 placeholder:text-gray-400 p-4 text-sm font-normal"
-              placeholder="name@luxetravel.com"
+              placeholder="name@gmail.com"
               type="email"
             />
           </div>
