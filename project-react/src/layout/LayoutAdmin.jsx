@@ -8,8 +8,7 @@ const LayoutAdmin = () => {
 
   // 3. ฟังก์ชันสำหรับ Logout
   const handleLogout = (e) => {
-    e.preventDefault(); // ป้องกันการเปลี่ยนหน้าทันที
-    
+    e.preventDefault();
 
     Swal.fire({
       title: "ยืนยันการออกจากระบบ?",
@@ -21,22 +20,25 @@ const LayoutAdmin = () => {
       confirmButtonText: "ใช่, ออกจากระบบ",
       cancelButtonText: "ยกเลิก",
     }).then((result) => {
+      // ตรวจสอบว่ากดยืนยัน (Confirm) หรือไม่
       if (result.isConfirmed) {
-        // ถ้ากดตกลง
+        // --- ส่วนที่แก้ไข 1: ลบข้อมูลเฉพาะที่เกี่ยวกับการ Login เท่านั้น ---
+        // ไม่ใช้ localStorage.clear() เพราะจะทำให้ประวัติการจอง (myBookings) หาย
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("userToken"); // หรือ key อื่นๆ ที่คุณใช้เก็บข้อมูล User
+
         Swal.fire({
           title: "ออกจากระบบสำเร็จ",
           icon: "success",
           timer: 1500,
           showConfirmButton: false,
         }).then(() => {
-          navigate("/Login"); // ดีดกลับไปหน้า Login หรือ "/" ตามต้องการ
+          // --- ส่วนที่แก้ไข 2: ย้าย navigate มาไว้ในนี้เพื่อให้ทำงานหลังจากปิดแจ้งเตือน ---
+          navigate("/Login", { replace: true });
         });
       }
+      // ถ้ากด Cancel (cancelButton) จะไม่เกิดอะไรขึ้น และหน้าเดิมจะไม่ถูกเปลี่ยน
     });
-    localStorage.clear();
-
-    // 2. ดีดไปหน้า Login
-    navigate("/Login", { replace: true });
   };
 
   return (

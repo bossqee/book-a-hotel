@@ -13,58 +13,68 @@ const Accommodations = () => {
       title: `<div class="text-xl font-bold text-navy-deep">จองที่พัก: ${item.name}</div>`,
       icon: "info",
       html: `
-      <div class="flex flex-col gap-4 text-left p-2 font-sans">
-        <div>
-          <label class="text-xs font-bold text-gray-500 uppercase tracking-wider">เลือกวันที่เข้าพัก - ออก</label>
-          <input type="text" id="date-range" class="swal2-input !m-0 !w-full !text-sm cursor-pointer" placeholder="คลิกเพื่อเลือกวันที่">
-        </div>
+    <div class="flex flex-col gap-4 text-left p-2 font-sans">
+      <div>
+        <label class="text-xs font-bold text-gray-500 uppercase tracking-wider">เลือกวันที่เข้าพัก - ออก</label>
+        <input type="text" id="date-range" class="swal2-input !m-0 !w-full !text-sm cursor-pointer" placeholder="คลิกเพื่อเลือกวันที่" readonly>
+      </div>
 
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="text-xs font-bold text-gray-500 uppercase tracking-wider">ผู้ใหญ่</label>
-            <div class="flex items-center border border-gray-300 rounded-lg mt-1">
-               <input type="number" id="adults" class="swal2-input !border-0 !m-0 !w-full !text-center" value="2" min="1">
-            </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="text-xs font-bold text-gray-500 uppercase tracking-wider">ผู้ใหญ่</label>
+          <div class="flex items-center border border-gray-300 rounded-lg mt-1">
+             <input type="number" id="adults" class="swal2-input !border-0 !m-0 !w-full !text-center" value="2" min="1">
           </div>
-          <div>
-            <label class="text-xs font-bold text-gray-500 uppercase tracking-wider">เด็ก</label>
-            <div class="flex items-center border border-gray-300 rounded-lg mt-1">
-               <input type="number" id="children" class="swal2-input !border-0 !m-0 !w-full !text-center" value="0" min="0">
-            </div>
+        </div>
+        <div>
+          <label class="text-xs font-bold text-gray-500 uppercase tracking-wider">เด็ก</label>
+          <div class="flex items-center border border-gray-300 rounded-lg mt-1">
+             <input type="number" id="children" class="swal2-input !border-0 !m-0 !w-full !text-center" value="0" min="0">
           </div>
         </div>
       </div>
-    `,
+      <p class="text-[10px] text-blue-500 italic">* ราคา THB ${item.price.toLocaleString()} ต่อคืน</p>
+    </div>
+  `,
       didOpen: () => {
-        // เรียกใช้งานปฏิทินหลังจาก Swal เปิดขึ้นมา
+        // มั่นใจว่าล้างค่าเก่าและผูก flatpickr ใหม่ทุกครั้งที่เปิด Pop-up
         flatpickr("#date-range", {
           mode: "range",
           minDate: "today",
           dateFormat: "Y-m-d",
-          locale: { rangeSeparator: "  ถึง  " },
+          locale: { rangeSeparator: "  ถึง  " }, // ใช้ช่องว่างปกติ 2 ช่อง
         });
       },
       showCancelButton: true,
       confirmButtonText: "ยืนยันการจอง",
       cancelButtonText: "ยกเลิก",
-      confirmButtonColor: "#0a192f",
+      cancelButtonColor: "#d33",
+      confirmButtonColor: "#007b40",
       preConfirm: () => {
         const dateRange = Swal.getPopup().querySelector("#date-range").value;
         const adults = Swal.getPopup().querySelector("#adults").value;
         const children = Swal.getPopup().querySelector("#children").value;
 
-        if (!dateRange || !dateRange.includes("ถึง")) {
+        // แก้ไข logic การเช็คคำว่า "ถึง" ให้ยืดหยุ่นขึ้น
+        if (!dateRange || !dateRange.includes(" ถึง ")) {
           Swal.showValidationMessage(`กรุณาเลือกทั้งวันที่เช็คอินและเช็คเอาท์`);
           return false;
         }
 
-        // แยกวันที่เช็คอินและเช็คเอาท์
-        const [checkin, checkout] = dateRange.split("  ถึง  ");
+        // ใช้การ Split ที่ตรงกับตอนตั้งค่า didOpen
+        const dates = dateRange.split("  ถึง  ");
+        const checkin = dates[0].trim();
+        const checkout = dates[1].trim();
 
-        return { checkin, checkout, adults, children };
+        const diffInMs = new Date(checkout) - new Date(checkin);
+        const nights = Math.max(1, diffInMs / (1000 * 60 * 60 * 24));
+
+        return { checkin, checkout, adults, children, nights };
       },
     }).then((result) => {
+      // ... ส่วนการ Save LocalStorage คงเดิม ...
       if (result.isConfirmed) {
+        const totalAmount = item.price * result.value.nights;
         const newBooking = {
           id: Date.now(),
           hotelName: item.name,
@@ -73,11 +83,11 @@ const Accommodations = () => {
           checkout: result.value.checkout,
           adults: result.value.adults,
           children: result.value.children,
-          totalPrice: item.price, // หรือคำนวณตามจำนวนคืน
-          status: "Pending", // สถานะเริ่มต้น
+          nights: result.value.nights,
+          totalPrice: totalAmount,
+          status: "Pending",
         };
 
-        // ดึงข้อมูลเดิมที่มีอยู่มา แล้ว push อันใหม่เข้าไป
         const existingBookings = JSON.parse(
           localStorage.getItem("myBookings") || "[]",
         );
@@ -88,7 +98,7 @@ const Accommodations = () => {
 
         Swal.fire({
           title: "จองสำเร็จ!",
-          text: "คุณสามารถตรวจสอบสถานะได้ที่หน้าประวัติการจอง",
+          text: `ราคารวมสำหรับ ${result.value.nights} คืนคือ THB ${totalAmount.toLocaleString()}`,
           icon: "success",
           confirmButtonColor: "#0a192f",
         });
@@ -256,13 +266,8 @@ const Accommodations = () => {
                       </p>
 
                       <button
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg font-bold flex items-center gap-1 transition-all"
-                        onClick={() =>
-                          handleBooking({
-                            name: "โรงแรมบันยันทรี กรุงเทพฯ",
-                            id: 101,
-                          })
-                        }
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg font-bold flex items-center gap-1 transition-all shadow-md active:scale-95"
+                        onClick={() => handleBooking(item)}
                       >
                         จองเลยตอนนี้ <ChevronRight size={18} />
                       </button>
