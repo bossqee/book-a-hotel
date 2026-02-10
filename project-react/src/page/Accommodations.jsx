@@ -65,16 +65,32 @@ const Accommodations = () => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
+        const newBooking = {
+          id: Date.now(),
+          hotelName: item.name,
+          hotelImage: item.image,
+          checkin: result.value.checkin,
+          checkout: result.value.checkout,
+          adults: result.value.adults,
+          children: result.value.children,
+          totalPrice: item.price, // หรือคำนวณตามจำนวนคืน
+          status: "Pending", // สถานะเริ่มต้น
+        };
+
+        // ดึงข้อมูลเดิมที่มีอยู่มา แล้ว push อันใหม่เข้าไป
+        const existingBookings = JSON.parse(
+          localStorage.getItem("myBookings") || "[]",
+        );
+        localStorage.setItem(
+          "myBookings",
+          JSON.stringify([...existingBookings, newBooking]),
+        );
+
         Swal.fire({
           title: "จองสำเร็จ!",
-          text: `คุณได้จอง ${item.name} สำหรับผู้ใหญ่ ${result.value.adults} คน และเด็ก ${result.value.children} คน`,
+          text: "คุณสามารถตรวจสอบสถานะได้ที่หน้าประวัติการจอง",
           icon: "success",
           confirmButtonColor: "#0a192f",
-        });
-
-        console.log("บันทึกข้อมูลลง Database:", {
-          hotelId: item.id,
-          ...result.value,
         });
       }
     });

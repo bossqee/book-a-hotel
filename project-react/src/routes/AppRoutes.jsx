@@ -8,7 +8,8 @@ import Register from "../page/Register.jsx";
 import AdminDashboard from "../page/admin/AdminDashboard.jsx";
 import LayoutAdmin from "../layout/LayoutAdmin.jsx";
 import Category from "../page/admin/Category.jsx";
-import ProtectedRoute from "./ProtectedRoute.jsx"; // นำเข้าตัวป้องกัน Route
+import ProtectedRoute from "./ProtectedRoute.jsx";
+import MyBookings from "../page/MyBookings.jsx";
 
 
 const router = createBrowserRouter([
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "Home", element: <Home /> },
       { path: "Accommodations", element: <Accommodations /> },
+      { path: "MyBookings", element: <MyBookings /> },
     ],
   },
 
