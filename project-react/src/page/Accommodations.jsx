@@ -1,14 +1,57 @@
-import React from "react";
+import React, { useState } from "react"; // 1. เพิ่ม useState ในการ import
 import Nav_Main from "../components/ui/Nav_Main";
 import Footer from "../components/ui/Footer";
 import { products } from "../data/Product";
-import { Star, MapPin, ChevronRight, Heart } from "lucide-react";
+import { Star, MapPin, ChevronRight, Heart, Search } from "lucide-react"; // 2. เพิ่ม Search icon
 import Swal from "sweetalert2";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
 const Accommodations = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [maxPrice, setMaxPrice] = useState(10000);
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  // --- 3. เพิ่มฟังก์ชันจัดการการคลิก Tag/Checkbox ที่คุณยังไม่มี ---
+  const handleTagChange = (tag) => {
+    if (selectedTags.includes(tag)) {
+      setSelectedTags(selectedTags.filter((t) => t !== tag));
+    } else {
+      setSelectedTags([...selectedTags, tag]);
+    }
+  };
+
+  const filteredProducts = products.filter((item) => {
+    const matchesSearch = item.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    const matchesPrice = item.price <= maxPrice;
+    const matchesTags =
+      selectedTags.length === 0 || selectedTags.includes(item.tag);
+    return matchesSearch && matchesPrice && matchesTags;
+  });
+
+  // ... (ฟังก์ชัน toggleFavorite และ handleBooking ของคุณเหมือนเดิมเป๊ะ) ...
+  const [favorites, setFavorites] = useState(
+    JSON.parse(localStorage.getItem("myFavorites") || "[]"),
+  );
+  const toggleFavorite = (item) => {
+    const existingFavorites = JSON.parse(
+      localStorage.getItem("myFavorites") || "[]",
+    );
+    const isExist = existingFavorites.find((fav) => fav.id === item.id);
+    let updatedFavorites;
+    if (isExist) {
+      updatedFavorites = existingFavorites.filter((fav) => fav.id !== item.id);
+    } else {
+      updatedFavorites = [...existingFavorites, item];
+    }
+    localStorage.setItem("myFavorites", JSON.stringify(updatedFavorites));
+    setFavorites(updatedFavorites);
+  };
+
   const handleBooking = (item) => {
+    // ... (โค้ด handleBooking เดิมของคุณทั้งหมด) ...
     Swal.fire({
       title: `<div class="text-xl font-bold text-navy-deep">จองที่พัก: ${item.name}</div>`,
       icon: "info",
@@ -37,12 +80,11 @@ const Accommodations = () => {
     </div>
   `,
       didOpen: () => {
-        // มั่นใจว่าล้างค่าเก่าและผูก flatpickr ใหม่ทุกครั้งที่เปิด Pop-up
         flatpickr("#date-range", {
           mode: "range",
           minDate: "today",
           dateFormat: "Y-m-d",
-          locale: { rangeSeparator: "  ถึง  " }, // ใช้ช่องว่างปกติ 2 ช่อง
+          locale: { rangeSeparator: "  ถึง  " },
         });
       },
       showCancelButton: true,
@@ -55,13 +97,11 @@ const Accommodations = () => {
         const adults = Swal.getPopup().querySelector("#adults").value;
         const children = Swal.getPopup().querySelector("#children").value;
 
-        // แก้ไข logic การเช็คคำว่า "ถึง" ให้ยืดหยุ่นขึ้น
         if (!dateRange || !dateRange.includes(" ถึง ")) {
           Swal.showValidationMessage(`กรุณาเลือกทั้งวันที่เช็คอินและเช็คเอาท์`);
           return false;
         }
 
-        // ใช้การ Split ที่ตรงกับตอนตั้งค่า didOpen
         const dates = dateRange.split("  ถึง  ");
         const checkin = dates[0].trim();
         const checkout = dates[1].trim();
@@ -72,7 +112,6 @@ const Accommodations = () => {
         return { checkin, checkout, adults, children, nights };
       },
     }).then((result) => {
-      // ... ส่วนการ Save LocalStorage คงเดิม ...
       if (result.isConfirmed) {
         const totalAmount = item.price * result.value.nights;
         const newBooking = {
@@ -105,106 +144,164 @@ const Accommodations = () => {
       }
     });
   };
+
   return (
     <div className="bg-white min-h-screen flex flex-col">
-      {/* Main Content Area */}
+      <Nav_Main />
       <main className="flex-grow pt-28 pb-16 px-4 md:px-10 max-w-[1440px] mx-auto w-full">
-        {/* Header Section */}
-
         <div className="flex flex-col md:flex-row gap-6">
-          {/* LEFT SIDE: Filter Options */}
+          {/* LEFT SIDE: (Layout ที่คุณเลือกมา ผมใส่ onChange ให้แล้ว) */}
           <aside className="w-full md:w-1/4 space-y-6">
-            {/* Map Preview */}
-            <div className="relative h-32 w-full rounded-xl overflow-hidden border border-gray-200 bg-blue-50 flex items-center justify-center group cursor-pointer">
+            <div className="relative h-38 w-full rounded-xl overflow-hidden border border-gray-200 bg-blue-50 flex items-center justify-center group cursor-pointer">
+              {/* ส่วนของ Iframe สำหรับแสดงหน้าแมพเบื้องต้น */}
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d496933.3819845245!2d100.81870103834153!3d13.332100601313767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z4LiX4Li14LmI4Lie4Lix4LiB4LiB4Lij4Li44LiH4LmA4LiX4Lie!5e0!3m2!1sth!2sth!4v1770701875307!5m2!1sth!2sth"
-                className="absolute inset-0 object-cover opacity-60 w-100 h-100"
+                title="map-preview"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d124015.49818128222!2d100.4490529!3d13.7485306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d6032280d61f3%3A0x10100b25de24820!2sBangkok!5e0!3m2!1sen!2sth!4v1715600000000!5m2!1sen!2sth"
+                className="absolute inset-0 object-cover opacity-60 w-full h-full border-0"
+                allowFullScreen=""
+                loading="lazy"
               ></iframe>
-              <button className="relative bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg group-hover:bg-blue-700">
+
+              {/* ปุ่มสำหรับกดเปิด Google Maps หน้าใหม่ */}
+              <button className="relative bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg transition-all hover:bg-blue-700 active:scale-95 z-10">
                 <a
-                  href="https://maps.app.goo.gl/MjcWm4X8Xhxo7tfs9"
-                  className="text-white"
+                  href="https://www.google.com/maps/search/?api=1&query=hotels+in+Bangkok"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white flex items-center gap-2"
                 >
+                  <MapPin size={16} />
                   แสดงแผนที่
                 </a>
               </button>
             </div>
 
-            <div className="border border-gray-200 rounded-xl p-5 space-y-6">
-              <h2 className="font-bold text-gray-800 border-b pb-2">
-                จำกัดการค้นหาด้วย:
-              </h2>
+            <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6 sticky top-24 space-y-8">
+              <div className="flex items-center justify-between border-b border-gray-50 pb-4">
+                <h2 className="font-bold text-lg text-gray-900">ตัวกรอง</h2>
+                {(searchQuery ||
+                  selectedTags.length > 0 ||
+                  maxPrice < 15000) && (
+                  <button
+                    onClick={() => {
+                      setSearchQuery("");
+                      setSelectedTags([]);
+                      setMaxPrice(15000);
+                    }}
+                    className="text-xs text-red-500 font-semibold hover:bg-red-50 px-2 py-1 rounded-lg transition-colors"
+                  >
+                    ล้างค่า
+                  </button>
+                )}
+              </div>
 
-              {/* Budget Filter */}
-              <div>
-                <p className="font-semibold text-sm mb-3">
-                  งบประมาณของท่าน (ต่อคืน)
-                </p>
-                <input type="range" className="w-full accent-blue-600" />
-                <div className="flex justify-between text-xs text-gray-500 mt-2">
-                  <span>THB 200</span>
-                  <span>THB 9,000+</span>
+              <div className="space-y-3">
+                <label className="text-sm font-bold text-gray-700">
+                  ค้นหาชื่อที่พัก
+                </label>
+                <div className="relative group">
+                  <input
+                    type="text"
+                    placeholder="ระบุชื่อโรงแรม..."
+                    className="w-full p-3 pl-10 bg-gray-50 border border-transparent rounded-xl text-sm focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  <Search
+                    className="absolute left-3 top-3 text-gray-400 group-focus-within:text-blue-500 transition-colors"
+                    size={18}
+                  />
                 </div>
               </div>
 
-              {/* Checkbox Groups */}
-              <div>
-                <p className="font-semibold text-sm mb-3">เกณฑ์ค้นหายอดนิยม</p>
-                {[
-                  "5 ดาว",
-                  "รวมอาหารเช้า",
-                  "ดีมาก: 8+",
-                  "โรงแรม",
-                  "มีสระว่ายน้ำ",
-                  "วิลลา",
-                  "รีสอร์ท",
-                  "บ้านพักต่างอากาศ",
-                  "อพาร์ตเมนต์",
-                  "แคมป์",
-                ].map((label) => (
-                  <label
-                    key={label}
-                    className="flex items-center gap-3 mb-2 cursor-pointer group"
-                  >
-                    <input
-                      type="checkbox"
-                      className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                    />
-                    <span className="text-sm text-gray-600 group-hover:text-gray-900">
-                      {label}
-                    </span>
+              <div className="space-y-4">
+                <div className="flex justify-between items-end">
+                  <label className="text-sm font-bold text-gray-700">
+                    งบประมาณต่อคืน
                   </label>
-                ))}
+                  <span className="text-sm font-black text-blue-600 bg-blue-50 px-2 py-1 rounded-md">
+                    ฿{maxPrice.toLocaleString()}
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="500"
+                  max="15000"
+                  step="500"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(Number(e.target.value))}
+                  className="w-full h-1.5 bg-gray-100 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                />
+              </div>
+
+              <div className="space-y-4">
+                <label className="text-sm font-bold text-gray-700">
+                  ประเภทที่พัก
+                </label>
+                <div className="grid grid-cols-1 gap-2">
+                  {["5 ดาว", "โรงแรม", "วิลลา", "รีสอร์ท", "แคมป์"].map(
+                    (label) => (
+                      <label
+                        key={label}
+                        className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${selectedTags.includes(label) ? "border-blue-500 bg-blue-50/50 ring-1 ring-blue-500" : "border-gray-100 hover:border-blue-200 hover:bg-gray-50"}`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <input
+                            type="checkbox"
+                            checked={selectedTags.includes(label)}
+                            onChange={() => handleTagChange(label)}
+                            className="hidden"
+                          />
+                          <span
+                            className={`text-sm font-medium ${selectedTags.includes(label) ? "text-blue-700" : "text-gray-600"}`}
+                          >
+                            {label}
+                          </span>
+                        </div>
+                        {selectedTags.includes(label) && (
+                          <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></div>
+                        )}
+                      </label>
+                    ),
+                  )}
+                </div>
               </div>
             </div>
           </aside>
 
-          {/* RIGHT SIDE: Data List */}
+          {/* RIGHT SIDE: (UI เดิมของคุณเป๊ะๆ แค่เปลี่ยน products.map เป็น filteredProducts.map) */}
           <section className="w-full md:w-3/4 space-y-4">
-            {/* Sort Bar */}
             <div className="flex items-center gap-2 border border-gray-200 rounded-full px-4 py-2 w-fit text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50">
               <span>จัดเรียงตาม: ตัวเลือกที่จัดอันดับ</span>
             </div>
 
-            {/* Product Cards */}
-            {products.map((item) => (
+            {/* --- เปลี่ยนเป็น filteredProducts.map เพื่อให้ผลการกรองทำงาน --- */}
+            {filteredProducts.map((item) => (
+              
               <div
                 key={item.id}
                 className="flex flex-col sm:flex-row border border-blue-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow bg-white relative"
               >
-                {/* Image Section */}
                 <div className="w-full sm:w-72 h-56 relative">
                   <img
                     src={item.image}
                     alt={item.name}
                     className="w-full h-full object-cover hover:scale-110 transition-transform duration-500 cursor-pointer"
                   />
-                  <button className="absolute top-3 right-3 p-2 bg-white/80 backdrop-blur-md rounded-full text-gray-600 hover:text-red-500 transition-colors shadow-sm">
-                    <Heart size={20} />
+                  <button
+                    onClick={() => toggleFavorite(item)}
+                    className="absolute top-3 right-3 p-2 bg-white/80 backdrop-blur-md rounded-full transition-colors shadow-sm"
+                  >
+                    <Heart
+                      size={20}
+                      className={
+                        favorites.some((f) => f.id === item.id)
+                          ? "text-red-500 fill-current"
+                          : "text-gray-600"
+                      }
+                    />
                   </button>
                 </div>
-
-                {/* Content Section */}
                 <div className="flex-grow p-5 flex flex-col md:flex-row justify-between">
                   <div className="md:w-2/3">
                     <div className="flex items-center gap-2 mb-1">
@@ -217,7 +314,6 @@ const Accommodations = () => {
                         <Star size={14} fill="currentColor" />
                       </div>
                     </div>
-
                     <div className="flex items-center gap-1 text-xs text-blue-600 font-medium mb-3">
                       <MapPin size={14} />
                       <span className="underline cursor-pointer">
@@ -225,17 +321,13 @@ const Accommodations = () => {
                       </span>
                       <span className="text-gray-400 ml-2">แสดงบนแผนที่</span>
                     </div>
-
                     <div className="w-35 bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-md mb-3 uppercase">
                       {item.tag}
                     </div>
-
                     <p className="text-xs text-gray-600 border-l-2 border-gray-200 italic float-left pl-3">
                       {item.description}
                     </p>
                   </div>
-
-                  {/* Pricing & Rating Section */}
                   <div className="md:w-1/3 flex flex-col justify-between items-end mt-4 md:mt-0">
                     <div className="flex items-center gap-2">
                       <div className="text-right">
@@ -250,7 +342,6 @@ const Accommodations = () => {
                         ★ {item.rating.toFixed(1)}
                       </div>
                     </div>
-
                     <div className="text-right mt-4">
                       <p className="text-[10px] text-gray-400">
                         1 คืน, ผู้ใหญ่ 2 ท่าน
@@ -264,7 +355,6 @@ const Accommodations = () => {
                       <p className="text-[10px] text-gray-500 mb-3">
                         รวมภาษีและค่าธรรมเนียมแล้ว
                       </p>
-
                       <button
                         className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg font-bold flex items-center gap-1 transition-all shadow-md active:scale-95"
                         onClick={() => handleBooking(item)}
@@ -279,7 +369,6 @@ const Accommodations = () => {
           </section>
         </div>
       </main>
-
       <Footer />
     </div>
   );

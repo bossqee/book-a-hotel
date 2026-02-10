@@ -10,6 +10,7 @@ import LayoutAdmin from "../layout/LayoutAdmin.jsx";
 import Category from "../page/admin/Category.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import MyBookings from "../page/MyBookings.jsx";
+import Wishlist from "../page/Wishlist.jsx";
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
       { path: "Home", element: <Home /> },
       { path: "Accommodations", element: <Accommodations /> },
       { path: "MyBookings", element: <MyBookings /> },
+      { path: "Wishlist", element: <Wishlist /> },
     ],
   },
 
