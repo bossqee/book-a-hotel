@@ -47,7 +47,7 @@ const Footer = () => {
                 <a href="Accommodations" className="text-gray-400 hover:text-white cursor-pointer transition-colors text-dd">ที่พัก</a>
               </li>
               <li>
-                <a href="Packages" className="text-gray-400 hover:text-white cursor-pointer transition-colors text-dd">แพ็กเกจเดินทาง</a>
+                <a href="Packages" className="text-gray-400 hover:text-white cursor-pointer transition-colors text-dd">เที่ยวบิน+ที่พัก</a>
               </li>
               <li>
                 <a href="Offers" className="text-gray-400 hover:text-white cursor-pointer transition-colors text-dd">ข้อเสนอพิเศษ</a>
