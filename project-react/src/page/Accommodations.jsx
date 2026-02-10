@@ -19,8 +19,8 @@ const Accommodations = () => {
           <aside className="w-full md:w-1/4 space-y-6">
             {/* Map Preview */}
             <div className="relative h-32 w-full rounded-xl overflow-hidden border border-gray-200 bg-blue-50 flex items-center justify-center group cursor-pointer">
-                <img src="https://api.maptiler.com/maps/basic-v2/static/100.5,13.7,12/400x200.png?key=get_your_own_key" className="absolute inset-0 object-cover opacity-60" alt="map" />
-                <button className="relative bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg group-hover:bg-blue-700">แสดงแผนที่</button>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d496933.3819845245!2d100.81870103834153!3d13.332100601313767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z4LiX4Li14LmI4Lie4Lix4LiB4LiB4Lij4Li44LiH4LmA4LiX4Lie!5e0!3m2!1sth!2sth!4v1770701875307!5m2!1sth!2sth" className="absolute inset-0 object-cover opacity-60 w-100 h-100"></iframe>
+                <button className="relative bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg group-hover:bg-blue-700"><a href="https://maps.app.goo.gl/MjcWm4X8Xhxo7tfs9" className="text-white">แสดงแผนที่</a></button>
             </div>
 
             <div className="border border-gray-200 rounded-xl p-5 space-y-6">
@@ -63,7 +63,7 @@ const Accommodations = () => {
                 
                 {/* Image Section */}
                 <div className="w-full sm:w-72 h-56 relative">
-                  <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                  <img src={item.image} alt={item.name} className="w-full h-full object-cover hover:scale-110 transition-transform duration-500 cursor-pointer" />
                   <button className="absolute top-3 right-3 p-2 bg-white/80 backdrop-blur-md rounded-full text-gray-600 hover:text-red-500 transition-colors shadow-sm">
                     <Heart size={20} />
                   </button>
@@ -74,7 +74,7 @@ const Accommodations = () => {
                   
                   <div className="md:w-2/3">
                     <div className="flex items-center gap-2 mb-1">
-                        <h3 className="text-xl font-bold text-blue-700 hover:underline cursor-pointer">{item.name}</h3>
+                        <h3 className="text-xl font-bold text-[#0A1128] hover:underline cursor-pointer">{item.name}</h3>
                         <div className="flex text-yellow-400"><Star size={14} fill="currentColor" /><Star size={14} fill="currentColor" /><Star size={14} fill="currentColor" /></div>
                     </div>
                     

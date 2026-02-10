@@ -41,20 +41,6 @@ const Nav_Main = () => {
             <Link
               style={{ color: "black", textDecoration: "none" }}
               className="text-white/90 hover:text-accent-gold text-sm font-medium transition-colors"
-              to={"Packages"}
-            >
-              ตั๋วเครื่องบิน + ที่พัก{" "}
-            </Link>
-            <Link
-              style={{ color: "black", textDecoration: "none" }}
-              className="text-white/90 hover:text-accent-gold text-sm font-medium transition-colors"
-              to={"Offers"}
-            >
-              ส่วนลด - ข้อเสนอพิเศษ{" "}
-            </Link>
-            <Link
-              style={{ color: "black", textDecoration: "none" }}
-              className="text-white/90 hover:text-accent-gold text-sm font-medium transition-colors"
               to={"Login"}
             >
               ลงชื่อเข้าใช้{" "}

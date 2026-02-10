@@ -29,7 +29,7 @@ const Popular = () => {
             </div>
             <div className="mt-12">
               <a
-                class="text-primary font-bold text-sm flex items-center gap-1 hover:gap-2 transition-all"
+                class="text-primary a font-bold text-sm flex items-center gap-1 hover:gap-2 transition-all"
                 href="Accommodations"
               >
                 View All Accommodation{" "}
