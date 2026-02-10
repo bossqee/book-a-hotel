@@ -47,6 +47,10 @@ const Home = () => {
         });
       }
     });
+    localStorage.clear();
+
+    // 2. ดีดไปหน้า Login
+    navigate("/Login", { replace: true });
   };
   return (
     <div className="absolute inset-0 bg-cover bg-center home-background">

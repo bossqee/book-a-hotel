@@ -15,6 +15,7 @@ const Nav_Main = () => {
   // 3. ฟังก์ชันสำหรับ Logout
   const handleLogout = (e) => {
     e.preventDefault(); // ป้องกันการเปลี่ยนหน้าทันที
+    
 
     Swal.fire({
       title: "ยืนยันการออกจากระบบ?",
@@ -38,6 +39,10 @@ const Nav_Main = () => {
         });
       }
     });
+    localStorage.clear();
+
+    // 2. ดีดไปหน้า Login
+    navigate("/Login", { replace: true });
   };
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-white/10 backdrop-blur-md shadow-md">

@@ -13,13 +13,10 @@ import ProtectedRoute from "./ProtectedRoute.jsx"; // นำเข้าตั�
 
 const router = createBrowserRouter([
   
-  
-  // --- ส่วนของ USER ---
   {
     path: "/",
     element: (
       <ProtectedRoute> 
-        {/* ครอบเพื่อให้ต้อง Login ก่อนถึงจะเข้าหน้า Layout (Home/Accommodations) ได้ */}
         <Layout />
       </ProtectedRoute>
     ),

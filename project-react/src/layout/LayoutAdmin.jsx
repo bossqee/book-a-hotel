@@ -9,6 +9,7 @@ const LayoutAdmin = () => {
   // 3. ฟังก์ชันสำหรับ Logout
   const handleLogout = (e) => {
     e.preventDefault(); // ป้องกันการเปลี่ยนหน้าทันที
+    
 
     Swal.fire({
       title: "ยืนยันการออกจากระบบ?",
@@ -18,7 +19,7 @@ const LayoutAdmin = () => {
       confirmButtonColor: "#007b40",
       cancelButtonColor: "#d33",
       confirmButtonText: "ใช่, ออกจากระบบ",
-      cancelButtonText: "ยกเลิก"
+      cancelButtonText: "ยกเลิก",
     }).then((result) => {
       if (result.isConfirmed) {
         // ถ้ากดตกลง
@@ -26,12 +27,16 @@ const LayoutAdmin = () => {
           title: "ออกจากระบบสำเร็จ",
           icon: "success",
           timer: 1500,
-          showConfirmButton: false
+          showConfirmButton: false,
         }).then(() => {
           navigate("/Login"); // ดีดกลับไปหน้า Login หรือ "/" ตามต้องการ
         });
       }
     });
+    localStorage.clear();
+
+    // 2. ดีดไปหน้า Login
+    navigate("/Login", { replace: true });
   };
 
   return (
@@ -51,7 +56,7 @@ const LayoutAdmin = () => {
                 direction="left"
               />
             </div>
-            
+
             <div className="flex items-center gap-6 text-white text-md animate-in duration-500">
               <Link
                 className="text-black/90 hover:text-accent-gold text-sm font-medium transition-colors"
@@ -65,7 +70,7 @@ const LayoutAdmin = () => {
               >
                 Category
               </Link>
-              
+
               {/* 4. เปลี่ยนเป็นปุ่ม หรือใส่ onClick ให้ Link */}
               <button
                 onClick={handleLogout}
