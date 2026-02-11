@@ -6,6 +6,7 @@ import { Star, MapPin, ChevronRight, Heart, Search } from "lucide-react"; // 2. 
 import Swal from "sweetalert2";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Accommodations = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -147,7 +148,6 @@ const Accommodations = () => {
 
   return (
     <div className="bg-white min-h-screen flex flex-col">
-      <Nav_Main />
       <main className="flex-grow pt-28 pb-16 px-4 md:px-10 max-w-[1440px] mx-auto w-full">
         <div className="flex flex-col md:flex-row gap-6">
           {/* LEFT SIDE: (Layout ที่คุณเลือกมา ผมใส่ onChange ให้แล้ว) */}
@@ -177,7 +177,7 @@ const Accommodations = () => {
             </div>
 
             <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6 sticky top-24 space-y-8">
-              <div className="flex items-center justify-between border-b border-gray-50 pb-4">
+              <div className="flex items-center justify-between border-b border-gray-50">
                 <h2 className="font-bold text-lg text-gray-900">ตัวกรอง</h2>
                 {(searchQuery ||
                   selectedTags.length > 0 ||
@@ -188,7 +188,7 @@ const Accommodations = () => {
                       setSelectedTags([]);
                       setMaxPrice(15000);
                     }}
-                    className="text-xs text-red-500 font-semibold hover:bg-red-50 px-2 py-1 rounded-lg transition-colors"
+                    className="text-xs text-red-500 font-semibold px-2 py-1 rounded-lg transition-colors"
                   >
                     ล้างค่า
                   </button>
@@ -277,95 +277,126 @@ const Accommodations = () => {
 
             {/* --- เปลี่ยนเป็น filteredProducts.map เพื่อให้ผลการกรองทำงาน --- */}
             {filteredProducts.map((item) => (
-              
-              <div
-                key={item.id}
-                className="flex flex-col sm:flex-row border border-blue-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow bg-white relative"
+              <motion.div
+                key={item.id} // สำคัญมาก: key ต้องนิ่งเพื่อให้ animation รู้ว่าตัวไหนมาหรือไป
+                layout // 3. เพิ่ม layout เพื่อให้การ์ดที่เหลือเลื่อนขึ้นมาแทนที่กันแบบสมูท
+                initial={{ opacity: 0, y: 20 }} // เริ่มต้น: จางและอยู่ต่ำลงไปหน่อย
+                animate={{ opacity: 1, y: 0 }} // ปรากฏ: ชัดเจนและเลื่อนขึ้นมาที่เดิม
+                exit={{ opacity: 0, scale: 0.95 }} // ตอนหายไป: จางลงและย่อตัวเล็กน้อย
+                transition={{ duration: 0.3 }} // ความเร็วของ Animation
               >
-                <div className="w-full sm:w-72 h-56 relative">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-500 cursor-pointer"
-                  />
-                  <button
-                    onClick={() => toggleFavorite(item)}
-                    className="absolute top-3 right-3 p-2 bg-white/80 backdrop-blur-md rounded-full transition-colors shadow-sm"
-                  >
-                    <Heart
-                      size={20}
-                      className={
-                        favorites.some((f) => f.id === item.id)
-                          ? "text-red-500 fill-current"
-                          : "text-gray-600"
-                      }
+                <div
+                  key={item.id}
+                  className="flex flex-col sm:flex-row border border-blue-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow bg-white relative"
+                >
+                  <div className="w-full sm:w-72 h-56 relative">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500 cursor-pointer"
                     />
-                  </button>
-                </div>
-                <div className="flex-grow p-5 flex flex-col md:flex-row justify-between">
-                  <div className="md:w-2/3">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-xl font-bold text-[#0A1128] hover:underline cursor-pointer">
-                        {item.name}
-                      </h3>
-                      <div className="flex text-yellow-400">
-                        <Star size={14} fill="currentColor" />
-                        <Star size={14} fill="currentColor" />
-                        <Star size={14} fill="currentColor" />
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 text-xs text-blue-600 font-medium mb-3">
-                      <MapPin size={14} />
-                      <span className="underline cursor-pointer">
-                        {item.location}
-                      </span>
-                      <span className="text-gray-400 ml-2">แสดงบนแผนที่</span>
-                    </div>
-                    <div className="w-35 bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-md mb-3 uppercase">
-                      {item.tag}
-                    </div>
-                    <p className="text-xs text-gray-600 border-l-2 border-gray-200 italic float-left pl-3">
-                      {item.description}
-                    </p>
+                    <button
+                      onClick={() => toggleFavorite(item)}
+                      className="absolute top-3 right-3 p-2 bg-white/80 backdrop-blur-md rounded-full transition-colors shadow-sm"
+                    >
+                      <Heart
+                        size={20}
+                        className={
+                          favorites.some((f) => f.id === item.id)
+                            ? "text-red-500 fill-current"
+                            : "text-gray-600"
+                        }
+                      />
+                    </button>
                   </div>
-                  <div className="md:w-1/3 flex flex-col justify-between items-end mt-4 md:mt-0">
-                    <div className="flex items-center gap-2">
-                      <div className="text-right">
-                        <p className="text-sm font-bold text-gray-800">
-                          ดีเลิศ
-                        </p>
-                        <p className="text-[10px] text-gray-500">
-                          {item.reviews.toLocaleString()} ความคิดเห็น
-                        </p>
+                  <div className="flex-grow p-5 flex flex-col md:flex-row justify-between">
+                    <div className="md:w-2/3">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="text-xl font-bold text-[#0A1128] hover:underline cursor-pointer">
+                          {item.name}
+                        </h3>
+                        <div className="flex text-yellow-400">
+                          <Star size={14} fill="currentColor" />
+                          <Star size={14} fill="currentColor" />
+                          <Star size={14} fill="currentColor" />
+                        </div>
                       </div>
-                      <div className="bg-white shadow text-yellow-600 w-14 h-8 flex items-center justify-center rounded-lg font-bold">
-                        ★ {item.rating.toFixed(1)}
+                      <div className="flex items-center gap-1 text-xs text-blue-600 font-medium mb-3">
+                        <MapPin size={14} />
+                        <span className="underline cursor-pointer">
+                          {item.location}
+                        </span>
+                        <span className="text-gray-400 ml-2">แสดงบนแผนที่</span>
                       </div>
+                      <div className="w-35 bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-md mb-3 uppercase">
+                        {item.tag}
+                      </div>
+                      <p className="text-xs text-gray-600 border-l-2 border-gray-200 italic float-left pl-3">
+                        {item.description}
+                      </p>
                     </div>
-                    <div className="text-right mt-4">
-                      <p className="text-[10px] text-gray-400">
-                        1 คืน, ผู้ใหญ่ 2 ท่าน
-                      </p>
-                      <p className="text-xs text-red-500 line-through">
-                        THB {item.oldPrice.toLocaleString()}
-                      </p>
-                      <p className="text-2xl font-bold text-gray-900 leading-tight font-sans">
-                        THB {item.price.toLocaleString()}
-                      </p>
-                      <p className="text-[10px] text-gray-500 mb-3">
-                        รวมภาษีและค่าธรรมเนียมแล้ว
-                      </p>
-                      <button
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg font-bold flex items-center gap-1 transition-all shadow-md active:scale-95"
-                        onClick={() => handleBooking(item)}
-                      >
-                        จองเลยตอนนี้ <ChevronRight size={18} />
-                      </button>
+                    <div className="md:w-1/3 flex flex-col justify-between items-end mt-4 md:mt-0">
+                      <div className="flex items-center gap-2">
+                        <div className="text-right">
+                          <p className="text-sm font-bold text-gray-800">
+                            ดีเลิศ
+                          </p>
+                          <p className="text-[10px] text-gray-500">
+                            {item.reviews.toLocaleString()} ความคิดเห็น
+                          </p>
+                        </div>
+                        <div className="bg-white shadow text-yellow-600 w-14 h-8 flex items-center justify-center rounded-lg font-bold">
+                          ★ {item.rating.toFixed(1)}
+                        </div>
+                      </div>
+                      <div className="text-right mt-4">
+                        <p className="text-[10px] text-gray-400">
+                          1 คืน, ผู้ใหญ่ 2 ท่าน
+                        </p>
+                        <p className="text-xs text-red-500 line-through">
+                          THB {item.oldPrice.toLocaleString()}
+                        </p>
+                        <p className="text-2xl font-bold text-gray-900 leading-tight font-sans">
+                          THB {item.price.toLocaleString()}
+                        </p>
+                        <p className="text-[10px] text-gray-500 mb-3">
+                          รวมภาษีและค่าธรรมเนียมแล้ว
+                        </p>
+                        <button
+                          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg font-bold flex items-center gap-1 transition-all shadow-md active:scale-95"
+                          onClick={() => handleBooking(item)}
+                        >
+                          จองเลยตอนนี้ <ChevronRight size={18} />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
+            {filteredProducts.length === 0 && (
+              <div className="flex flex-col items-center justify-center py-20 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
+                <div className="bg-white p-4 rounded-full shadow-sm mb-4">
+                  <Search size={40} className="text-gray-300" />
+                </div>
+                <h3 className="text-lg font-bold text-gray-800">
+                  ไม่พบที่พักที่คุณต้องการ
+                </h3>
+                <p className="text-sm text-gray-500 mt-1">
+                  ลองปรับเปลี่ยนตัวกรอง หรือค้นหาด้วยชื่ออื่นดูนะ
+                </p>
+                <button
+                  onClick={() => {
+                    setSearchQuery("");
+                    setMaxPrice(15000);
+                    setSelectedTags([]);
+                  }}
+                  className="mt-6 text-blue-600 font-bold "
+                >
+                  ล้างค่าการกรองทั้งหมด
+                </button>
+              </div>
+            )}
           </section>
         </div>
       </main>

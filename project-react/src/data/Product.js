@@ -17,7 +17,7 @@ export const products = [
     id: 2,
     name: "Pratunam Family House",
     location: "พญาไท, กรุงเทพมหานคร",
-    price: 1037,
+    price: 6890,
     oldPrice: 2395,
     rating: 7.2,
     reviews: 85,

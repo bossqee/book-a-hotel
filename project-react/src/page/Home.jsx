@@ -93,7 +93,7 @@ const Home = () => {
                 MyBookings{" "}
               </Link>
               <Link
-                style={{ color: "black", textDecoration: "none" }}
+                style={{ color: "white", textDecoration: "none" }}
                 className="text-white/90 hover:text-accent-gold text-sm font-medium transition-colors"
                 to={"Wishlist"}
               >
@@ -101,7 +101,7 @@ const Home = () => {
               </Link>
               <button
                 onClick={handleLogout}
-                className="bg-btn text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-all shadow-lg cursor-pointer"
+                className="bg-btn text-black px-6 py-2.5 rounded-lg text-sm font-bold transition-all shadow-lg cursor-pointer"
               >
                 Logout
               </button>
