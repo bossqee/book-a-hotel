@@ -1,153 +1,150 @@
 import React, { useState, useEffect } from "react";
+import { 
+  Calendar, MapPin, Users, Ticket, 
+  CheckCircle2, Clock, ChevronRight, ArrowLeft 
+} from "lucide-react";
+import { useNavigate } from "react-router";
 import Nav_Main from "../components/ui/Nav_Main";
-import Footer from "../components/ui/Footer";
-import { Trash2, Calendar, Users, Info, CreditCard } from "lucide-react";
-import Swal from "sweetalert2";
 
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    // ดึงข้อมูลการจองล่าสุดจาก localStorage
     const data = JSON.parse(localStorage.getItem("myBookings") || "[]");
-    setBookings(data);
+    setBookings(data.reverse()); // เอาอันล่าสุดขึ้นก่อน
   }, []);
 
-  // ฟังก์ชันลบรายการจอง
-  const handleDelete = (id) => {
-    Swal.fire({
-      title: "ยกเลิกการจอง?",
-      text: "คุณต้องการยกเลิกรายการจองนี้ใช่หรือไม่?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "ใช่, ยกเลิกเลย",
-      cancelButtonText: "เก็บไว้ก่อน",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const updatedBookings = bookings.filter((b) => b.id !== id);
-        setBookings(updatedBookings);
-        localStorage.setItem("myBookings", JSON.stringify(updatedBookings));
-        Swal.fire("สำเร็จ!", "ยกเลิกรายการจองเรียบร้อยแล้ว", "success");
-      }
-    });
-  };
-
   return (
-    <div className="bg-gray-50 min-h-screen flex flex-col">
-
-      <main className="flex-grow pt-28 pb-16 px-4 md:px-10 max-w-[1200px] mx-auto w-full">
-        {/* Header & Stats Dashboard */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+    <div className="bg-[#F8FAFC] min-h-screen">
+      <Nav_Main />
+      
+      <main className="pt-28 pb-16 px-4 md:px-10 max-w-4xl mx-auto w-full">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-[#0A1128]">ประวัติการจองของฉัน</h1>
-            <p className="text-gray-500 text-sm">จัดการและตรวจสอบสถานะการเข้าพักของคุณ</p>
+            <h1 className="text-3xl font-black text-slate-900">การจองของฉัน</h1>
+            <p className="text-slate-500 font-medium">ติดตามสถานะและดูรายละเอียดการเข้าพัก</p>
           </div>
-          
-          <div className="flex gap-4 w-full md:w-auto">
-            <div className="bg-white p-4 rounded-2xl shadow-sm border border-blue-100 flex-1 md:w-32">
-              <p className="text-xs text-gray-500 font-bold uppercase">ทั้งหมด</p>
-              <p className="text-2xl font-bold text-blue-600">{bookings.length}</p>
-            </div>
-            <div className="bg-white p-4 rounded-2xl shadow-sm border border-blue-100 flex-1 md:w-48">
-              <p className="text-xs text-gray-500 font-bold uppercase">ยอดรวมที่ชำระ</p>
-              <p className="text-2xl font-bold text-green-600">
-                ฿{bookings.reduce((sum, b) => sum + (Number(b.totalPrice) || 0), 0).toLocaleString()}
-              </p>
-            </div>
-          </div>
+          <button 
+            onClick={() => navigate("/accommodations")}
+            className="flex items-center gap-2 text-blue-600 font-bold hover:text-blue-700 transition-colors"
+          >
+            <ArrowLeft size={20} /> กลับไปหน้าค้นหา
+          </button>
         </div>
 
-        {bookings.length === 0 ? (
-          <div className="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-gray-200">
-            <div className="bg-gray-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Calendar className="text-gray-400" size={40} />
-            </div>
-            <h3 className="text-xl font-bold text-gray-800">ยังไม่มีรายการจอง</h3>
-            <p className="text-gray-500 mt-2">เริ่มวางแผนการเดินทางของคุณได้เลยวันนี้</p>
-            <a href="/accommodations" className="mt-6 inline-block bg-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all">
-              ค้นหาที่พัก
-            </a>
-          </div>
-        ) : (
-          <div className="space-y-6">
-            {bookings.map((booking) => (
-              <div
-                key={booking.id}
-                className="group flex flex-col md:flex-row border border-blue-100 rounded-2xl overflow-hidden bg-white hover:shadow-xl transition-all duration-300"
-              >
-                {/* Image Section */}
-                <div className="w-full md:w-72 h-48 md:h-auto relative">
-                  <img
-                    src={booking.hotelImage}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 cursor-pointer"
-                    alt={booking.hotelName}
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className={`px-3 py-1.5 rounded-lg text-xs font-bold shadow-lg backdrop-blur-md ${
-                      booking.status === "Pending" 
-                        ? "bg-yellow-500/90 text-white" 
-                        : "bg-green-500/90 text-white"
-                    }`}>
-                      {booking.status === "Pending" ? "● รอการยืนยัน" : "● ยืนยันแล้ว"}
-                    </span>
+        {/* Booking List */}
+        <div className="space-y-6">
+          {bookings.length > 0 ? (
+            bookings.map((item) => (
+              <div key={item.id} className="group relative bg-white border border-slate-200 rounded-3xl overflow-hidden hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300">
+                <div className="flex flex-col md:flex-row">
+                  
+                  {/* Image Section */}
+                  <div className="md:w-1/3 h-48 md:h-auto relative">
+                    <img src={item.hotelImage} alt={item.hotelName} className="w-full h-full object-cover" />
+                    <div className="absolute top-4 left-4">
+                      <StatusTag status={item.status || "Pending"} />
+                    </div>
                   </div>
-                </div>
 
-                {/* Content Section */}
-                <div className="flex-grow p-6 flex flex-col justify-between">
-                  <div className="flex justify-between items-start">
+                  {/* Info Section */}
+                  <div className="md:w-2/3 p-6 md:p-8 flex flex-col justify-between">
                     <div>
-                      <h3 className="text-xl font-bold text-[#0A1128] mb-2">{booking.hotelName}</h3>
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2 text-sm text-gray-600">
-                          <Calendar size={16} className="text-blue-500" />
-                          <span className="font-medium">{booking.checkin}</span>
-                          <span className="text-gray-400">ถึง</span>
-                          <span className="font-medium">{booking.checkout}</span>
-                          <span className="ml-2 bg-blue-50 text-blue-700 px-2 py-0.5 rounded text-xs">
-                             {booking.nights} คืน
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm text-gray-600">
-                          <Users size={16} className="text-blue-500" />
-                          <span>ผู้ใหญ่: {booking.adults} • เด็ก: {booking.children}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <button 
-                      onClick={() => handleDelete(booking.id)}
-                      className="p-2 text-gray-400 hover:text-red-500 rounded-full transition-colors"
-                      title="ยกเลิกการจอง"
-                    >
-                      <Trash2 size={20} />
-                    </button>
-                  </div>
-
-                  <div className="mt-6 pt-4 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-end sm:items-center gap-4">
-                    <div className="flex items-center gap-2 text-xs text-gray-400">
-                      <Info size={14} />
-                      <span>ID: {booking.id}</span>
-                    </div>
-                    
-                    <div className="text-right">
-                      <p className="text-xs text-gray-500 uppercase font-bold tracking-wider">ราคาสุทธิ</p>
-                      <div className="flex items-center gap-2">
-                        <CreditCard size={18} className="text-green-600" />
-                        <span className="text-2xl font-black text-[#0A1128]">
-                          THB {Number(booking.totalPrice).toLocaleString()}
+                      <div className="flex justify-between items-start mb-2">
+                        <h2 className="text-xl font-black text-slate-900 leading-tight">{item.hotelName}</h2>
+                        <span className="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                          THB {item.totalPrice?.toLocaleString()}
                         </span>
                       </div>
+                      
+                      <div className="grid grid-cols-2 gap-y-3 mt-4">
+                        <div className="flex items-center gap-2 text-slate-500 text-sm">
+                          <Calendar size={16} className="text-slate-400" />
+                          <span className="font-medium">{item.checkin} - {item.checkout}</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-slate-500 text-sm">
+                          <Users size={16} className="text-slate-400" />
+                          <span className="font-medium">{item.adults} ผู้ใหญ่, {item.children} เด็ก</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-slate-500 text-sm col-span-2">
+                          <Ticket size={16} className="text-slate-400" />
+                          <span className="font-bold text-slate-700">Booking ID: #{item.id.toString().slice(-8).toUpperCase()}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Bottom Action */}
+                    <div className="mt-6 pt-6 border-t border-slate-100 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">ชำระเงินที่พัก</p>
+                        <div className="h-1 w-1 rounded-full bg-slate-300"></div>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">ไม่ต้องใช้บัตรเครดิต</p>
+                      </div>
+                      <button className="flex items-center gap-1 text-sm font-black text-slate-900 group-hover:gap-2 transition-all">
+                        ดูรายละเอียดแผนที่ <ChevronRight size={18} />
+                      </button>
                     </div>
                   </div>
+
                 </div>
               </div>
-            ))}
-          </div>
-        )}
+            ))
+          ) : (
+            /* Empty State */
+            <div className="bg-white border-2 border-dashed border-slate-200 rounded-[40px] py-20 px-6 text-center">
+              <div className="bg-slate-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Ticket size={40} className="text-slate-300" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-2">คุณยังไม่มีรายการจอง</h3>
+              <p className="text-slate-500 mb-8 max-w-xs mx-auto">ออกไปค้นหาที่พักที่ถูกใจ แล้วเริ่มออกเดินทางไปกับเราเลย!</p>
+              <button 
+                onClick={() => navigate("/accommodations")}
+                className="bg-blue-600 text-white px-8 py-4 rounded-2xl font-black shadow-lg shadow-blue-200 hover:scale-105 transition-all"
+              >
+                เริ่มจองที่พักเลย
+              </button>
+            </div>
+          )}
+        </div>
       </main>
+    </div>
+  );
+};
 
-      <Footer />
+// Component สถานะแบบพรีเมียม
+const StatusTag = ({ status }) => {
+  const configs = {
+    Pending: { 
+      text: "รอดำเนินการ", 
+      icon: <Clock size={12}/>, 
+      style: "bg-white/90 text-orange-600" 
+    },
+    Confirmed: { 
+      text: "จองสำเร็จ", 
+      icon: <CheckCircle2 size={12}/>, 
+      style: "bg-green-500/90 text-white" 
+    },
+    "Paid & Completed": { 
+      text: "เข้าพักเรียบร้อย", 
+      icon: <CheckCircle2 size={12}/>, 
+      style: "bg-blue-600/90 text-white" 
+    },
+    Cancelled: { 
+      text: "ยกเลิกแล้ว", 
+      icon: <Ticket size={12}/>, 
+      style: "bg-red-500/90 text-white" 
+    },
+  };
+
+  const config = configs[status] || configs.Pending;
+
+  return (
+    <div className={`backdrop-blur-md px-3 py-1.5 rounded-xl flex items-center gap-2 text-[11px] font-black uppercase tracking-wider shadow-lg ${config.style}`}>
+      {config.icon}
+      {config.text}
     </div>
   );
 };
