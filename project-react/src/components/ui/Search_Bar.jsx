@@ -8,7 +8,7 @@ const Search_Bar = () => {
           location_on
         </span>
         <input
-          class="bg-transparent border-none focus:ring-0 text-deep-navy dark:text-white placeholder:text-gray-400 w-full font-medium"
+          class="bg-transparent border-none focus:ring-0 text-deep-navy dark:text-black placeholder:text-gray-400 w-full font-medium"
           placeholder="คุณต้องการไปที่ไหน?"
           type="text"
         />
@@ -18,7 +18,7 @@ const Search_Bar = () => {
           calendar_today
         </span>
         <input
-          class="bg-transparent border-none focus:ring-0 text-deep-navy dark:text-white placeholder:text-gray-400 w-full font-medium"
+          class="bg-transparent border-none focus:ring-0 text-deep-navy dark:text-black placeholder:text-gray-400 w-full font-medium"
           placeholder="เช็คอิน - เช็คเอาท์"
           type="text"
         />
@@ -28,7 +28,7 @@ const Search_Bar = () => {
           person
         </span>
         <input
-          class="bg-transparent border-none focus:ring-0 text-deep-navy dark:text-white placeholder:text-gray-400 w-full font-medium"
+          class="bg-transparent border-none focus:ring-0 text-deep-navy dark:text-black placeholder:text-gray-400 w-full font-medium"
           placeholder="ผู้ใหญ่ 2 ห้อง 1"
           type="text"
         />
