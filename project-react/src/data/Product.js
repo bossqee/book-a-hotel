@@ -102,7 +102,7 @@ export const products = [
     rating: 8.9,
     reviews: 3560,
     image:
-      "https://lh3.googleusercontent.com/p/AF1QipPVUYRbciLLttsQOMhoVMd91XniuQN-Ako5zcT0=w324-h312-n-k-no",
+      "https://cf.bstatic.com/xdata/images/hotel/square600/531921776.webp?k=f31e8140470a72bfbe9d3d69055672f0b59897f957822d096d1b8e0c07cbb35b&o=",
     description: "โรงแรมขนาดใหญ่ใจกลางสุขุมวิท ห้องพักทันสมัย ใกล้แหล่งช้อปปิ้ง",
     tag: "โรงแรม",
   },
