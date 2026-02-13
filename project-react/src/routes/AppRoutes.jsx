@@ -7,10 +7,11 @@ import Login from "../page/Login.jsx";
 import Register from "../page/Register.jsx";
 import AdminDashboard from "../page/admin/AdminDashboard.jsx";
 import LayoutAdmin from "../layout/LayoutAdmin.jsx";
-import Category from "../page/admin/Category.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import MyBookings from "../page/MyBookings.jsx";
 import Wishlist from "../page/Wishlist.jsx";
+import AdminCategory from "../page/admin/AdminCategory.jsx";
+import AdminProduct from "../page/admin/AdminProduct.jsx";
 
 
 const router = createBrowserRouter([
@@ -43,7 +44,8 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <AdminDashboard /> },
       { path: "dashboard", element: <AdminDashboard /> },
-      { path: "category", element: <Category /> },
+      { path: "AdminCategory", element: <AdminCategory /> },
+      { path: "AdminProduct", element: <AdminProduct /> },
     ],
   },
 

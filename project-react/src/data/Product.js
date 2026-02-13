@@ -11,7 +11,7 @@ export const products = [
       "https://cf.bstatic.com/xdata/images/hotel/max1024x768/776639141.jpg?k=002518b67a6465ea62278806b61676a3d704fb031901ed40d5f9860fdb276067&o=",
     description:
       "ห้องพักสุดหรูพร้อมทิวทัศน์เมืองหรือแม่น้ำเจ้าพระยา มีสระว่ายน้ำกลางแจ้งขนาดใหญ่",
-    tag: "ข้อเสนอ Early 2026",
+    tag: "โรงแรม",
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ export const products = [
       "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=1000",
     description:
       "ที่พักราคาประหยัดใกล้แหล่งช้อปปิ้งประตูน้ำ เดินทางสะดวกด้วยรถไฟฟ้า",
-    tag: "ยกเลิกฟรี",
+    tag: "โรงแรม",
   },
   {
     id: 3,
@@ -38,7 +38,7 @@ export const products = [
     image:
       "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&q=80&w=1000",
     description: "รีสอร์ทระดับ 5 ดาว พร้อมบริการล่องเรือส่วนตัวและสปาครบวงจร",
-    tag: "ยอดนิยม",
+    tag: "รีสอร์ท",
   },
   {
     id: 4,
@@ -52,7 +52,7 @@ export const products = [
       "https://cf.bstatic.com/xdata/images/hotel/max500/817262427.jpg?k=d49e972ac752a03122b7ec064730cd5fd1a000c22dfa516240b73af715d4d8fd&o=",
     description:
       "โอเอซิสใจกลางสุขุมวิท ดีไซน์ทันสมัยพร้อมสิ่งอำนวยความสะดวกครบครัน",
-    tag: "จองเลย",
+    tag: "โรงแรม",
   },
   {
     id: 5,
@@ -65,7 +65,7 @@ export const products = [
     image: "https://lh3.googleusercontent.com/p/AF1QipNTnhyKwuuIPqOuBjrl53bRF-_3wtqnXTElHt5H=s1360-w1360-h1020-rw",
     description:
       "โรงแรมหรูสูงระฟ้า วิวแม่น้ำเจ้าพระยา มี Sky Bar ชื่อดังระดับโลก",
-    tag: "ดีลยอดนิยม",
+    tag: "โรงแรม",
   },
   {
     id: 6,
@@ -78,6 +78,72 @@ export const products = [
     image:
       "https://lh3.googleusercontent.com/p/AF1QipOjs2Hz8dk3ho1GYKvH9GxH7jA2AEe3sADT4XPa=s680-w680-h510-rw",
     description: "โรงแรมติด BTS ห้องพักกว้าง สระว่ายน้ำอินฟินิตี้",
-    tag: "เดินทางสะดวก",
+    tag: "โรงแรม",
   },
+  {
+    id: 7,
+    name: "Rosewood Bangkok",
+    location: "เพลินจิต, กรุงเทพมหานคร",
+    price: 12990,
+    oldPrice: 14985,
+    rating: 9.4,
+    reviews: 842,
+    image:
+      "https://lh3.googleusercontent.com/p/AF1QipP9G1cWuJrJimUrxI6j44QZJIi10pJC7awtDD79=w324-h312-n-k-no",
+    description: "โรงแรมหรูดีไซน์โมเดิร์น ใกล้ BTS เพลินจิต พร้อมสระว่ายน้ำวิวเมือง",
+    tag: "โรงแรม",
+  },
+  {
+    id: 8,
+    name: "Bangkok Marriott Marquis Queens Park",
+    location: "สุขุมวิท, กรุงเทพมหานคร",
+    price: 7500,
+    oldPrice: 9200,
+    rating: 8.9,
+    reviews: 3560,
+    image:
+      "https://lh3.googleusercontent.com/p/AF1QipPVUYRbciLLttsQOMhoVMd91XniuQN-Ako5zcT0=w324-h312-n-k-no",
+    description: "โรงแรมขนาดใหญ่ใจกลางสุขุมวิท ห้องพักทันสมัย ใกล้แหล่งช้อปปิ้ง",
+    tag: "โรงแรม",
+  },
+  {
+    id: 9,
+    name: "The Peninsula Bangkok",
+    location: "คลองสาน, กรุงเทพมหานคร",
+    price: 11200,
+    oldPrice: 14855,
+    rating: 9.5,
+    reviews: 2140,
+    image:
+      "https://lh3.googleusercontent.com/p/AF1QipNzRiDBz7JiHSbgKnpCJWUSOwu8us24u8HnHTH8=s1360-w1360-h1020-rw",
+    description: "โรงแรมขนาดใหญ่ใจกลางสุขุมวิท ห้องพักทันสมัย ใกล้แหล่งช้อปปิ้ง",
+    tag: "โรงแรม",
+  },
+  {
+    id: 10,
+    name: "MAYU Bangkok Japanese Style Hotel",
+    location: "วัฒนา, กรุงเทพมหานคร ",
+    price: 8500,
+    oldPrice: 9500,
+    rating: 9.2,
+    reviews: 1111,
+    image:
+      "https://cf.bstatic.com/xdata/images/hotel/max1024x768/412962162.jpg?k=b8aa2ce1b50c88b0c92b77530db8555f826255802a3de98f1295efb148fba168&o=",
+    description: "สไตล์ญี่ปุ่น ตั้งอยู่ในกรุงเทพมหานคร ในเขตวัฒนา ที่พักอยู่ห่างจากศูนย์การค้าเอ็มโพเรียม 1.7 กม",
+    tag: "วิลลา",
+  },
+  {
+    id: 11,
+    name: "เดอะ ซิลเวอร์ ปาล์ม เวลเนส รีสอร์ท",
+    location: "วัฒนา, กรุงเทพมหานคร ",
+    price: 4200,
+    oldPrice: 6800,
+    rating: 8.9,
+    reviews: 1235,
+    image:
+      "https://cf.bstatic.com/xdata/images/hotel/max1024x768/106700021.jpg?k=461f6f801bf83fdbe67dd33d22437ad4b1157b4013e85da3d5003684967c9c71&o=",
+    description: "ให้บริการที่พักพร้อมสระว่ายน้ำกลางแจ้ง ที่จอดรถส่วนตัวฟรี ศูนย์ออกกำลังกาย",
+    tag: "รีสอร์ท",
+  },
+  
 ];

@@ -1,5 +1,4 @@
-import React, { useState } from "react"; // 1. เพิ่ม useState ในการ import
-import Nav_Main from "../components/ui/Nav_Main";
+import React, { useState, useEffect } from "react"; // 1. เพิ่ม useState ในการ import
 import Footer from "../components/ui/Footer";
 import { products } from "../data/Product";
 import { Star, MapPin, ChevronRight, Heart, Search } from "lucide-react"; // 2. เพิ่ม Search icon
@@ -9,9 +8,39 @@ import "flatpickr/dist/flatpickr.min.css";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Accommodations = () => {
+  const [displayProducts, setDisplayProducts] = useState([]);
+  const [adminCategories, setAdminCategories] = useState([]);
+
   const [searchQuery, setSearchQuery] = useState("");
-  const [maxPrice, setMaxPrice] = useState(10000);
+  const [maxPrice, setMaxPrice] = useState(15000);
   const [selectedTags, setSelectedTags] = useState([]);
+
+  useEffect(() => {
+    // 1. ดึงหมวดหมู่จาก localStorage
+    const savedCats = JSON.parse(localStorage.getItem("categories") || "[]");
+    if (savedCats.length > 0) {
+      setAdminCategories(savedCats);
+    } else {
+      setAdminCategories([
+        { id: 1, name: "โรงแรม" },
+        { id: 2, name: "วิลลา" },
+        { id: 3, name: "รีสอร์ท" },
+      ]);
+    }
+
+    // 2. ดึงข้อมูลที่พักจาก localStorage (ที่เพิ่มจากหน้า AdminProduct)
+    const adminData = JSON.parse(
+      localStorage.getItem("admin_products") || "[]",
+    );
+
+    if (adminData.length > 0) {
+      // ถ้ามีข้อมูลใน Admin ให้ใช้ข้อมูลนั้น
+      setDisplayProducts(adminData);
+    } else {
+      // ถ้ายังไม่มี (เช่น เข้าครั้งแรก) ให้ใช้ข้อมูลตั้งต้นจากไฟล์ Product.js
+      setDisplayProducts(products);
+    }
+  }, []);
 
   // --- 3. เพิ่มฟังก์ชันจัดการการคลิก Tag/Checkbox ที่คุณยังไม่มี ---
   const handleTagChange = (tag) => {
@@ -22,7 +51,8 @@ const Accommodations = () => {
     }
   };
 
-  const filteredProducts = products.filter((item) => {
+  const filteredProducts = displayProducts.filter((item) => {
+    // เปลี่ยนจาก products เป็น displayProducts
     const matchesSearch = item.name
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
@@ -239,31 +269,38 @@ const Accommodations = () => {
                   ประเภทที่พัก
                 </label>
                 <div className="grid grid-cols-1 gap-2">
-                  {["5 ดาว", "โรงแรม", "วิลลา", "รีสอร์ท", "แคมป์"].map(
-                    (label) => (
-                      <label
-                        key={label}
-                        className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${selectedTags.includes(label) ? "border-blue-500 bg-blue-50/50 ring-1 ring-blue-500" : "border-gray-100 hover:border-blue-200 hover:bg-gray-50"}`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <input
-                            type="checkbox"
-                            checked={selectedTags.includes(label)}
-                            onChange={() => handleTagChange(label)}
-                            className="hidden"
-                          />
-                          <span
-                            className={`text-sm font-medium ${selectedTags.includes(label) ? "text-blue-700" : "text-gray-600"}`}
-                          >
-                            {label}
-                          </span>
-                        </div>
-                        {selectedTags.includes(label) && (
-                          <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></div>
-                        )}
-                      </label>
-                    ),
-                  )}
+                  {/* --- แก้ไขตรงนี้: เปลี่ยนจาก Array ที่เขียนเอง เป็น adminCategories.map --- */}
+                  {adminCategories.map((cat) => (
+                    <label
+                      key={cat.id}
+                      className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${
+                        selectedTags.includes(cat.name)
+                          ? "border-blue-500 bg-blue-50/50 ring-1 ring-blue-500"
+                          : "border-gray-100 hover:border-blue-200 hover:bg-gray-50"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <input
+                          type="checkbox"
+                          checked={selectedTags.includes(cat.name)}
+                          onChange={() => handleTagChange(cat.name)}
+                          className="hidden"
+                        />
+                        <span
+                          className={`text-sm font-medium ${
+                            selectedTags.includes(cat.name)
+                              ? "text-blue-700"
+                              : "text-gray-600"
+                          }`}
+                        >
+                          {cat.name}
+                        </span>
+                      </div>
+                      {selectedTags.includes(cat.name) && (
+                        <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></div>
+                      )}
+                    </label>
+                  ))}
                 </div>
               </div>
             </div>

@@ -68,9 +68,15 @@ const LayoutAdmin = () => {
               </Link>
               <Link
                 className="text-black/90 hover:text-accent-gold text-sm font-medium transition-colors"
-                to={"Category"}
+                to={"AdminCategory"}
               >
                 Category
+              </Link>
+              <Link
+                className="text-black/90 hover:text-accent-gold text-sm font-medium transition-colors"
+                to={"AdminProduct"}
+              >
+                Product
               </Link>
 
               {/* 4. เปลี่ยนเป็นปุ่ม หรือใส่ onClick ให้ Link */}
