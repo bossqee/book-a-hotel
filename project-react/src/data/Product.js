@@ -130,7 +130,7 @@ export const products = [
     image:
       "https://cf.bstatic.com/xdata/images/hotel/max1024x768/412962162.jpg?k=b8aa2ce1b50c88b0c92b77530db8555f826255802a3de98f1295efb148fba168&o=",
     description: "สไตล์ญี่ปุ่น ตั้งอยู่ในกรุงเทพมหานคร ในเขตวัฒนา ที่พักอยู่ห่างจากศูนย์การค้าเอ็มโพเรียม 1.7 กม",
-    tag: "วิลลา",
+    tag: "วิลล่า",
   },
   {
     id: 11,
