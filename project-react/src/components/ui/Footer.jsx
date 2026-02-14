@@ -43,14 +43,17 @@ const Footer = () => {
           <div className="flex flex-col items-start">
             <h3 className="text-lg font-semibold mb-4 text-white">Menu</h3>
             <ul className="space-y-2 text-sm  w-full text-left">
-              <li>
-                <a href="Accommodations" className="text-gray-400 hover:text-white cursor-pointer transition-colors text-dd">ที่พัก</a>
+              <li>  
+                <a href="Accommodations" className="text-gray-400 hover:text-white cursor-pointer transition-colors text-dd">Accommodations</a>
               </li>
               <li>
-                <a href="Login" className="text-gray-400 hover:text-white cursor-pointer transition-colors text-dd">เข้าสู่ระบบ</a>
+                <a href="MyBookings" className="text-gray-400 hover:text-white cursor-pointer transition-colors text-dd">MyBookings</a>
               </li>
               <li>
-                <a href="Register" className="text-gray-400 hover:text-white cursor-pointer transition-colors text-dd">สมัครสมาชิก</a>
+                <a href="Wishlist" className="text-gray-400 hover:text-white cursor-pointer transition-colors text-dd">Wishlist</a>
+              </li>
+              <li>
+                <a href="Login" className="text-gray-400 hover:text-white cursor-pointer transition-colors text-dd">Login</a>
               </li>
             </ul>
           </div>
