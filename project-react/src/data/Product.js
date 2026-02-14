@@ -12,6 +12,8 @@ export const products = [
     description:
       "ห้องพักสุดหรูพร้อมทิวทัศน์เมืองหรือแม่น้ำเจ้าพระยา มีสระว่ายน้ำกลางแจ้งขนาดใหญ่",
     tag: "โรงแรม",
+    totalRooms: 15,
+    availableRooms: 10,
   },
   {
     id: 2,
@@ -26,6 +28,8 @@ export const products = [
     description:
       "ที่พักราคาประหยัดใกล้แหล่งช้อปปิ้งประตูน้ำ เดินทางสะดวกด้วยรถไฟฟ้า",
     tag: "โรงแรม",
+    totalRooms: 12,
+    availableRooms: 3,
   },
   {
     id: 3,
@@ -39,6 +43,8 @@ export const products = [
       "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&q=80&w=1000",
     description: "รีสอร์ทระดับ 5 ดาว พร้อมบริการล่องเรือส่วนตัวและสปาครบวงจร",
     tag: "รีสอร์ท",
+    totalRooms: 20,
+    availableRooms: 15,
   },
   {
     id: 4,
@@ -53,6 +59,8 @@ export const products = [
     description:
       "โอเอซิสใจกลางสุขุมวิท ดีไซน์ทันสมัยพร้อมสิ่งอำนวยความสะดวกครบครัน",
     tag: "โรงแรม",
+    totalRooms: 16,
+    availableRooms: 8,
   },
   {
     id: 5,
@@ -66,6 +74,8 @@ export const products = [
     description:
       "โรงแรมหรูสูงระฟ้า วิวแม่น้ำเจ้าพระยา มี Sky Bar ชื่อดังระดับโลก",
     tag: "โรงแรม",
+    totalRooms: 22,
+    availableRooms: 10,
   },
   {
     id: 6,
@@ -79,6 +89,8 @@ export const products = [
       "https://lh3.googleusercontent.com/p/AF1QipOjs2Hz8dk3ho1GYKvH9GxH7jA2AEe3sADT4XPa=s680-w680-h510-rw",
     description: "โรงแรมติด BTS ห้องพักกว้าง สระว่ายน้ำอินฟินิตี้",
     tag: "โรงแรม",
+    totalRooms: 20,
+    availableRooms: 17,
   },
   {
     id: 7,
@@ -92,6 +104,8 @@ export const products = [
       "https://lh3.googleusercontent.com/p/AF1QipP9G1cWuJrJimUrxI6j44QZJIi10pJC7awtDD79=w324-h312-n-k-no",
     description: "โรงแรมหรูดีไซน์โมเดิร์น ใกล้ BTS เพลินจิต พร้อมสระว่ายน้ำวิวเมือง",
     tag: "โรงแรม",
+    totalRooms: 10,
+    availableRooms: 5,
   },
   {
     id: 8,
@@ -105,6 +119,8 @@ export const products = [
       "https://cf.bstatic.com/xdata/images/hotel/square600/531921776.webp?k=f31e8140470a72bfbe9d3d69055672f0b59897f957822d096d1b8e0c07cbb35b&o=",
     description: "โรงแรมขนาดใหญ่ใจกลางสุขุมวิท ห้องพักทันสมัย ใกล้แหล่งช้อปปิ้ง",
     tag: "โรงแรม",
+    totalRooms: 10,
+    availableRooms: 5,
   },
   {
     id: 9,
@@ -118,6 +134,8 @@ export const products = [
       "https://lh3.googleusercontent.com/p/AF1QipNzRiDBz7JiHSbgKnpCJWUSOwu8us24u8HnHTH8=s1360-w1360-h1020-rw",
     description: "โรงแรมขนาดใหญ่ใจกลางสุขุมวิท ห้องพักทันสมัย ใกล้แหล่งช้อปปิ้ง",
     tag: "โรงแรม",
+    totalRooms: 10,
+    availableRooms: 8,
   },
   {
     id: 10,
@@ -131,6 +149,8 @@ export const products = [
       "https://cf.bstatic.com/xdata/images/hotel/max1024x768/412962162.jpg?k=b8aa2ce1b50c88b0c92b77530db8555f826255802a3de98f1295efb148fba168&o=",
     description: "สไตล์ญี่ปุ่น ตั้งอยู่ในกรุงเทพมหานคร ในเขตวัฒนา ที่พักอยู่ห่างจากศูนย์การค้าเอ็มโพเรียม 1.7 กม",
     tag: "วิลล่า",
+    totalRooms: 6,
+    availableRooms: 3,
   },
   {
     id: 11,
@@ -144,6 +164,8 @@ export const products = [
       "https://cf.bstatic.com/xdata/images/hotel/max1024x768/106700021.jpg?k=461f6f801bf83fdbe67dd33d22437ad4b1157b4013e85da3d5003684967c9c71&o=",
     description: "ให้บริการที่พักพร้อมสระว่ายน้ำกลางแจ้ง ที่จอดรถส่วนตัวฟรี ศูนย์ออกกำลังกาย",
     tag: "รีสอร์ท",
+    totalRooms: 15,
+    availableRooms: 5,
   },
   
 ];

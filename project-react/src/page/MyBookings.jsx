@@ -19,7 +19,6 @@ const MyBookings = () => {
   useEffect(() => {
     const loadData = () => {
       const data = JSON.parse(localStorage.getItem("myBookings") || "[]");
-      // ใช้ reverse() เพื่อเอาการจองล่าสุดขึ้นก่อน
       setBookings([...data].reverse());
     };
 
@@ -158,10 +157,7 @@ const MyBookings = () => {
                           </p>
                           <div className="flex items-center gap-2 text-slate-700 font-bold text-sm">
                             <Users size={16} className="text-blue-500" />
-                            {/* แก้ไขเป็น Number() เพื่อป้องกันการต่อ String */}
-                            {Number(item.adults || 0) +
-                              Number(item.children || 0)}{" "}
-                            ท่าน
+                            {Number(item.adults || 0) + Number(item.children || 0)} ท่าน
                           </div>
                         </div>
 
@@ -180,12 +176,18 @@ const MyBookings = () => {
                     <div className="mt-8 flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div
-                          className={`w-2 h-2 rounded-full ${item.status === "Paid & Completed" ? "bg-emerald-500" : "bg-blue-500 animate-pulse"}`}
+                          className={`w-2 h-2 rounded-full ${
+                            item.status === "Paid & Completed"
+                              ? "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]"
+                              : "bg-blue-500 animate-pulse"
+                          }`}
                         ></div>
                         <span className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">
                           {item.status === "Paid & Completed"
-                            ? "ทริปนี้เสร็จสมบูรณ์แล้ว"
-                            : "เตรียมตัวให้พร้อมสำหรับการเดินทาง"}
+                            ? "ทริปนี้จองสำเร็จแล้ว"
+                            : item.status === "Cancelled"
+                            ? "รายการนี้ถูกยกเลิก"
+                            : "กำลังรอแอดมินอนุมัติการจอง"}
                         </span>
                       </div>
 
@@ -193,7 +195,7 @@ const MyBookings = () => {
                         {item.status === "Paid & Completed" && (
                           <button
                             onClick={() => handleReview(item.hotelName)}
-                            className="flex items-center gap-2 bg-amber-50 text-amber-600 px-5 py-2.5 rounded-xl text-xs font-black hover:bg-amber-100 hover:shadow-lg hover:shadow-amber-200/30 transition-all active:scale-95 border border-amber-200/50"
+                            className="flex items-center gap-2 bg-emerald-50 text-emerald-600 px-5 py-2.5 rounded-xl text-xs font-black hover:bg-emerald-600 hover:text-white hover:shadow-lg hover:shadow-emerald-200/30 transition-all active:scale-95 border border-emerald-200/50"
                           >
                             <Star size={14} fill="currentColor" />
                             ให้คะแนนทริปนี้
@@ -215,8 +217,7 @@ const MyBookings = () => {
                 ยังไม่มีแผนการเดินทาง?
               </h3>
               <p className="text-slate-500 mb-10 max-w-sm mx-auto font-medium">
-                โลกใบใหญ่กำลังรอให้คุณไปสัมผัส
-                เริ่มต้นทริปใหม่ของคุณได้เพียงไม่กี่คลิก
+                โลกใบใหญ่กำลังรอให้คุณไปสัมผัส เริ่มต้นทริปใหม่ของคุณได้เพียงไม่กี่คลิก
               </p>
               <button
                 onClick={() => navigate("/accommodations")}
@@ -237,16 +238,17 @@ const StatusTag = ({ status }) => {
     Pending: {
       text: "กำลังตรวจสอบ",
       icon: <Clock size={12} />,
-      style: "bg-orange-500 text-white shadow-orange-200",
+      style: "bg-amber-500 text-white shadow-amber-200",
     },
+    // หากมีสถานะ Confirmed หลงเหลืออยู่ ให้แสดงเป็น "ยืนยันแล้ว"
     Confirmed: {
       text: "ยืนยันแล้ว",
       icon: <CheckCircle2 size={12} />,
       style: "bg-blue-600 text-white shadow-blue-200",
     },
     "Paid & Completed": {
-      text: "เช็คอินเรียบร้อย",
-      icon: <Star size={12} fill="currentColor" />,
+      text: "จองสำเร็จ", // เปลี่ยนจาก "เช็คอินเรียบร้อย" เป็น "จองสำเร็จ"
+      icon: <CheckCircle2 size={12} />,
       style: "bg-emerald-500 text-white shadow-emerald-200",
     },
     Cancelled: {
